@@ -1,0 +1,3087 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desarrollo Web para Niños – Frederick Corredor</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a1a;
+  --bg2: #0f0f2a;
+  --card: #131330;
+  --card2: #1a1a3e;
+  --purple: #7c3aed;
+  --purple-light: #a855f7;
+  --blue: #2563eb;
+  --cyan: #06b6d4;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --pink: #ec4899;
+  --orange: #f97316;
+  --red: #ef4444;
+  --text: #f0f0ff;
+  --text2: #a0a0cc;
+  --border: rgba(124,58,237,0.3);
+  --glow: 0 0 20px rgba(124,58,237,0.4);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* BG particles */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background: radial-gradient(ellipse at 20% 20%, rgba(124,58,237,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(6,182,212,0.1) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ===== HEADER ===== */
+#header {
+  background: linear-gradient(135deg, #0d0d2b 0%, #1a0a3e 50%, #0a1a3e 100%);
+  border-bottom: 2px solid var(--purple);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 30px rgba(124,58,237,0.4);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: var(--glow);
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(10px, 2vw, 16px);
+  line-height: 1.2;
+  font-weight: 900;
+}
+.header-title span { color: var(--cyan); }
+.header-title small {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  font-size: clamp(9px, 1.5vw, 12px);
+  color: var(--purple-light);
+  margin-top: 2px;
+}
+
+.header-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stat-badge {
+  background: rgba(124,58,237,0.2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.stat-badge.points { border-color: rgba(234,179,8,0.5); background: rgba(234,179,8,0.1); color: var(--yellow); }
+.stat-badge.streak { border-color: rgba(249,115,22,0.5); background: rgba(249,115,22,0.1); color: var(--orange); }
+
+/* ===== LAYOUT ===== */
+#app {
+  display: flex;
+  min-height: calc(100vh - 70px);
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== SIDEBAR ===== */
+#sidebar {
+  width: 270px;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+  position: sticky;
+  top: 70px;
+  transition: transform 0.3s;
+}
+
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+
+.sidebar-section {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-section-header {
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lang-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.lang-html { background: linear-gradient(135deg, #e34c26, #f16529); color: white; }
+.lang-css  { background: linear-gradient(135deg, #264de4, #2965f1); color: white; }
+.lang-js   { background: linear-gradient(135deg, #f7df1e, #f0db4f); color: #000; }
+
+.sidebar-progress-bar {
+  margin: 4px 16px 8px;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.sidebar-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px 9px 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 13px;
+  font-weight: 600;
+  border-left: 3px solid transparent;
+  color: var(--text2);
+  position: relative;
+}
+.lesson-item:hover { background: rgba(124,58,237,0.1); color: var(--text); border-left-color: var(--purple-light); }
+.lesson-item.active { background: rgba(124,58,237,0.2); color: var(--text); border-left-color: var(--purple); }
+.lesson-item.completed { color: var(--green); }
+.lesson-item.completed .lesson-icon { color: var(--green); }
+.lesson-item.locked { opacity: 0.4; cursor: not-allowed; }
+
+.lesson-icon { font-size: 14px; flex-shrink: 0; }
+.lesson-stars { margin-left: auto; font-size: 10px; letter-spacing: -1px; }
+
+/* ===== MAIN CONTENT ===== */
+#main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  min-width: 0;
+}
+
+/* ===== HOME SCREEN ===== */
+#home-screen {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #1a0a3e, #0a1a3e);
+  border: 2px solid var(--purple);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(124,58,237,0.3);
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::before {
+  content:'';
+  position:absolute;
+  top:-50%; left:-50%;
+  width:200%; height:200%;
+  background: conic-gradient(transparent 0deg, rgba(124,58,237,0.05) 90deg, transparent 180deg);
+  animation: rotate 8s linear infinite;
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(22px, 5vw, 42px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #fff, var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+.hero-subtitle {
+  color: var(--purple-light);
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 700;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.progress-overview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.prog-card {
+  background: rgba(0,0,0,0.3);
+  border-radius: 14px;
+  padding: 16px 12px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.prog-card .prog-icon { font-size: 28px; margin-bottom: 6px; }
+.prog-card .prog-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text2); }
+.prog-card .prog-value { font-size: 22px; font-weight: 900; margin: 4px 0; }
+.prog-card .prog-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 8px; overflow:hidden; }
+.prog-card .prog-bar-fill { height: 100%; border-radius: 2px; transition: width 0.8s ease; }
+
+.start-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: white;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 20px rgba(124,58,237,0.5);
+  transition: all 0.3s;
+  font-family: 'Nunito', sans-serif;
+  margin-top: 12px;
+  position: relative;
+}
+.start-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 8px 30px rgba(124,58,237,0.7); }
+
+.tracks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.track-card {
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  text-align: center;
+}
+.track-card:hover { transform: translateY(-4px); }
+.track-html { background: linear-gradient(135deg, rgba(227,76,38,0.15), rgba(241,101,41,0.1)); border-color: rgba(227,76,38,0.4); }
+.track-html:hover { border-color: #e34c26; box-shadow: 0 8px 30px rgba(227,76,38,0.3); }
+.track-css  { background: linear-gradient(135deg, rgba(38,77,228,0.15), rgba(41,101,241,0.1)); border-color: rgba(38,77,228,0.4); }
+.track-css:hover  { border-color: #264de4; box-shadow: 0 8px 30px rgba(38,77,228,0.3); }
+.track-js   { background: linear-gradient(135deg, rgba(247,223,30,0.15), rgba(240,219,79,0.1)); border-color: rgba(247,223,30,0.4); }
+.track-js:hover   { border-color: #f7df1e; box-shadow: 0 8px 30px rgba(247,223,30,0.3); }
+
+.track-emoji { font-size: 36px; margin-bottom: 10px; }
+.track-name { font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 900; margin-bottom: 4px; }
+.track-desc { font-size: 11px; color: var(--text2); }
+.track-progress { margin-top: 10px; height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow:hidden; }
+.track-progress-fill { height: 100%; border-radius: 3px; transition: width 0.8s; }
+
+/* ===== LESSON SCREEN ===== */
+#lesson-screen { max-width: 860px; margin: 0 auto; display: none; }
+
+.lesson-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--card);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+.lesson-number {
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: white;
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 900;
+  flex-shrink: 0;
+  box-shadow: var(--glow);
+}
+
+.lesson-meta { flex: 1; }
+.lesson-title { font-size: clamp(16px, 3vw, 24px); font-weight: 900; line-height: 1.2; margin-bottom: 4px; }
+.lesson-subtitle { font-size: 13px; color: var(--text2); }
+
+.lesson-xp-badge {
+  background: rgba(234,179,8,0.15);
+  border: 1px solid rgba(234,179,8,0.4);
+  color: var(--yellow);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* TABS */
+.lesson-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--card);
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.lesson-tab {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.lesson-tab:hover { background: rgba(124,58,237,0.15); color: var(--text); }
+.lesson-tab.active { background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; box-shadow: 0 2px 10px rgba(124,58,237,0.4); }
+.lesson-tab.done { color: var(--green); }
+.lesson-tab.done.active { background: linear-gradient(135deg, var(--green), #16a34a); }
+
+/* TAB CONTENT */
+.tab-pane { display: none; }
+.tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* INTRO TAB */
+.intro-content {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.intro-content h3 {
+  font-size: 18px;
+  font-weight: 900;
+  margin: 20px 0 10px;
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.intro-content h3:first-child { margin-top: 0; }
+
+.intro-content p { margin-bottom: 12px; color: #d0d0f0; }
+
+.tip-box {
+  background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(124,58,237,0.1));
+  border-left: 4px solid var(--cyan);
+  border-radius: 0 12px 12px 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-weight: 600;
+}
+.tip-box .tip-label { font-size: 11px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+
+.code-highlight {
+  background: #0d0d1f;
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin: 12px 0;
+  position: relative;
+}
+.code-highlight .tag { color: #f97316; }
+.code-highlight .attr { color: #a78bfa; }
+.code-highlight .val { color: #86efac; }
+.code-highlight .comment { color: #6b7280; font-style: italic; }
+.code-highlight .keyword { color: #f0abfc; }
+.code-highlight .string { color: #86efac; }
+.code-highlight .number { color: #fbbf24; }
+.code-highlight .prop { color: #93c5fd; }
+.code-highlight .selector { color: #f97316; }
+
+/* EXAMPLE TAB */
+.example-section { margin-bottom: 24px; }
+.example-card {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.example-card-header {
+  background: var(--card2);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.example-card-header .dot { width: 10px; height: 10px; border-radius: 50%; }
+.dots { display: flex; gap: 5px; }
+.dot-red { background: var(--red); }
+.dot-yellow { background: var(--yellow); }
+.dot-green { background: var(--green); }
+.example-label { font-size: 12px; font-weight: 800; color: var(--text2); }
+
+.example-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 150px;
+}
+@media(max-width:600px) { .example-split { grid-template-columns: 1fr; } }
+
+.code-panel {
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  background: #080818;
+  overflow-x: auto;
+  border-right: 1px solid var(--border);
+  white-space: pre;
+}
+
+.preview-panel {
+  padding: 16px;
+  background: white;
+  overflow-y: auto;
+}
+
+.preview-panel iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  border: none;
+}
+
+/* QUIZ TAB */
+.quiz-container { display: flex; flex-direction: column; gap: 20px; }
+
+.question-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.question-number {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--purple-light);
+  margin-bottom: 8px;
+}
+
+.question-text {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.options-grid { display: flex; flex-direction: column; gap: 8px; }
+
+.option-btn {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 2px solid rgba(124,58,237,0.25);
+  background: rgba(124,58,237,0.07);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.option-btn:hover:not(:disabled) { border-color: var(--purple-light); background: rgba(124,58,237,0.2); transform: translateX(4px); }
+.option-btn.correct { border-color: var(--green); background: rgba(34,197,94,0.15); color: var(--green); }
+.option-btn.wrong { border-color: var(--red); background: rgba(239,68,68,0.15); color: var(--red); }
+.option-btn:disabled { cursor: default; }
+
+.option-letter {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  background: rgba(124,58,237,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900;
+  flex-shrink: 0;
+}
+.option-btn.correct .option-letter { background: rgba(34,197,94,0.3); }
+.option-btn.wrong .option-letter { background: rgba(239,68,68,0.3); }
+
+.feedback-msg {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  display: none;
+}
+.feedback-msg.show { display: block; }
+.feedback-msg.correct { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4); color: var(--green); }
+.feedback-msg.wrong { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); color: #fca5a5; }
+
+/* CODE CHALLENGE TAB */
+.challenge-card {
+  background: var(--card);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.challenge-instructions {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card2);
+}
+.challenge-instructions h4 { font-size: 15px; font-weight: 900; margin-bottom: 8px; color: var(--yellow); }
+.challenge-instructions p { font-size: 14px; color: var(--text2); line-height: 1.6; }
+.challenge-instructions ul { margin: 8px 0 0 16px; }
+.challenge-instructions li { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
+
+.editor-area {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.editor-toolbar {
+  background: #0a0a1a;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+.editor-label { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text2); }
+
+.run-btn {
+  background: linear-gradient(135deg, var(--green), #16a34a);
+  color: white;
+  border: none;
+  padding: 7px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 6px;
+}
+.run-btn:hover { transform: scale(1.04); box-shadow: 0 4px 15px rgba(34,197,94,0.4); }
+
+.check-btn {
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: white;
+  border: none;
+  padding: 7px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 6px;
+}
+.check-btn:hover { transform: scale(1.04); box-shadow: 0 4px 15px rgba(124,58,237,0.5); }
+
+.editor-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 200px;
+}
+@media(max-width:600px) { .editor-split { grid-template-columns: 1fr; } }
+
+.code-editor {
+  background: #050510;
+  border: none;
+  color: #e0e0ff;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  padding: 16px;
+  resize: none;
+  outline: none;
+  line-height: 1.7;
+  border-right: 1px solid var(--border);
+  min-height: 200px;
+  tab-size: 2;
+}
+
+.preview-frame {
+  background: white;
+  border: none;
+  min-height: 200px;
+  width: 100%;
+}
+
+.challenge-result {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  display: none;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.challenge-result.show { display: flex; }
+.challenge-result.pass { background: rgba(34,197,94,0.1); color: var(--green); }
+.challenge-result.fail { background: rgba(239,68,68,0.1); color: #fca5a5; }
+
+/* COMPLETE SCREEN */
+.complete-card {
+  background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(6,182,212,0.1));
+  border: 2px solid var(--purple);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  margin-top: 20px;
+  box-shadow: 0 0 40px rgba(124,58,237,0.3);
+}
+.stars-display { font-size: 40px; letter-spacing: 4px; margin: 16px 0; }
+.complete-title { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; margin-bottom: 8px; background: linear-gradient(135deg, #fff, var(--yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.complete-points { font-size: 32px; font-weight: 900; color: var(--yellow); }
+.complete-points small { font-size: 14px; color: var(--text2); display: block; }
+.next-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  color: white;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  margin-top: 16px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(6,182,212,0.4);
+}
+.next-btn:hover { transform: translateY(-2px) scale(1.03); }
+
+.back-home-btn {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  margin-top: 10px;
+  transition: all 0.2s;
+  display: inline-block;
+  margin-left: 10px;
+}
+.back-home-btn:hover { background: rgba(124,58,237,0.1); color: var(--text); }
+
+/* HAMBURGER FOR MOBILE */
+#menu-toggle {
+  display: none;
+  background: rgba(124,58,237,0.2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@media(max-width: 768px) {
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 280px;
+    height: 100vh;
+    z-index: 200;
+    transform: translateX(-100%);
+  }
+  #sidebar.open { transform: translateX(0); }
+  #sidebar-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 199;
+    display: none;
+  }
+  #sidebar-overlay.show { display: block; }
+  #menu-toggle { display: flex; }
+  #main { padding: 16px; }
+  .tracks-grid { grid-template-columns: 1fr; }
+  .progress-overview { grid-template-columns: repeat(3,1fr); }
+}
+
+/* Confetti animation */
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+.confetti-piece {
+  position: fixed;
+  width: 10px; height: 10px;
+  top: -10px;
+  border-radius: 2px;
+  animation: confettiFall 3s ease-in forwards;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.tag-inline { display: inline; background: rgba(249,115,22,0.2); color: #fb923c; padding: 1px 6px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9em; }
+.keyword-inline { display: inline; background: rgba(167,139,250,0.2); color: #c4b5fd; padding: 1px 6px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9em; }
+
+/* Completion overlay */
+#lesson-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+#lesson-nav button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  border: none;
+  transition: all 0.2s;
+}
+#btn-prev { background: rgba(124,58,237,0.15); color: var(--text); border: 1px solid var(--border); }
+#btn-prev:hover { background: rgba(124,58,237,0.3); }
+#btn-next-lesson { background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; flex: 1; }
+#btn-next-lesson:hover { transform: scale(1.02); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <button id="menu-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="header-brand">
+    <div class="header-logo">🚀</div>
+    <div class="header-title">
+      PROGRAMA DE DESARROLLO WEB PARA NIÑOS
+      <small>por Frederick Corredor</small>
+    </div>
+  </div>
+  <div class="header-stats">
+    <div class="stat-badge points">⭐ <span id="total-points">0</span> pts</div>
+    <div class="stat-badge streak">🔥 <span id="streak-count">0</span> días</div>
+  </div>
+</header>
+
+<div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<div id="app">
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-header" onclick="toggleSection('html-section')">
+        <span class="lang-badge lang-html">HTML</span>
+        Fundamentos Web
+      </div>
+      <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" id="html-prog" style="width:0%;background:linear-gradient(90deg,#e34c26,#f16529)"></div></div>
+      <div id="html-section"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-header" onclick="toggleSection('css-section')">
+        <span class="lang-badge lang-css">CSS</span>
+        Estilos y Diseño
+      </div>
+      <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" id="css-prog" style="width:0%;background:linear-gradient(90deg,#264de4,#2965f1)"></div></div>
+      <div id="css-section"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-header" onclick="toggleSection('js-section')">
+        <span class="lang-badge lang-js">JS</span>
+        JavaScript
+      </div>
+      <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" id="js-prog" style="width:0%;background:linear-gradient(90deg,#f7df1e,#f0db4f)"></div></div>
+      <div id="js-section"></div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main id="main">
+    <!-- HOME SCREEN -->
+    <div id="home-screen">
+      <div class="hero-card">
+        <div class="hero-title">¡Aprende a Crear Páginas Web! 🌐</div>
+        <div class="hero-subtitle">Tu camino hacia convertirte en desarrollador web</div>
+        <div class="progress-overview">
+          <div class="prog-card">
+            <div class="prog-icon">🏆</div>
+            <div class="prog-label">Puntos</div>
+            <div class="prog-value" id="home-points" style="color:var(--yellow)">0</div>
+            <div class="prog-bar"><div class="prog-bar-fill" id="home-points-bar" style="width:0%;background:linear-gradient(90deg,var(--yellow),var(--orange))"></div></div>
+          </div>
+          <div class="prog-card">
+            <div class="prog-icon">📚</div>
+            <div class="prog-label">Lecciones</div>
+            <div class="prog-value" id="home-lessons" style="color:var(--cyan)">0</div>
+            <div class="prog-bar"><div class="prog-bar-fill" id="home-lessons-bar" style="width:0%;background:linear-gradient(90deg,var(--cyan),var(--blue))"></div></div>
+          </div>
+          <div class="prog-card">
+            <div class="prog-icon">⭐</div>
+            <div class="prog-label">Estrellas</div>
+            <div class="prog-value" id="home-stars" style="color:var(--purple-light)">0</div>
+            <div class="prog-bar"><div class="prog-bar-fill" id="home-stars-bar" style="width:0%;background:linear-gradient(90deg,var(--purple-light),var(--purple))"></div></div>
+          </div>
+        </div>
+        <button class="start-btn" onclick="startFirstLesson()">🚀 ¡Comenzar a Aprender!</button>
+      </div>
+
+      <div class="tracks-grid">
+        <div class="track-card track-html" onclick="goToTrack('html')">
+          <div class="track-emoji">🟠</div>
+          <div class="track-name" style="color:#f16529">HTML</div>
+          <div class="track-desc">La estructura de las páginas web. ¡Aprende a crear tu primera página!</div>
+          <div class="track-progress"><div class="track-progress-fill" id="tr-html" style="width:0%;background:linear-gradient(90deg,#e34c26,#f16529)"></div></div>
+        </div>
+        <div class="track-card track-css" onclick="goToTrack('css')">
+          <div class="track-emoji">🔵</div>
+          <div class="track-name" style="color:#2965f1">CSS</div>
+          <div class="track-desc">¡Ponle colores y estilo a tu página! Hazla hermosa y divertida.</div>
+          <div class="track-progress"><div class="track-progress-fill" id="tr-css" style="width:0%;background:linear-gradient(90deg,#264de4,#2965f1)"></div></div>
+        </div>
+        <div class="track-card track-js" onclick="goToTrack('js')">
+          <div class="track-emoji">🟡</div>
+          <div class="track-name" style="color:#f0db4f">JavaScript</div>
+          <div class="track-desc">¡Haz que tu página cobre vida! Botones, animaciones y más.</div>
+          <div class="track-progress"><div class="track-progress-fill" id="tr-js" style="width:0%;background:linear-gradient(90deg,#f7df1e,#f0db4f)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON SCREEN -->
+    <div id="lesson-screen">
+      <div class="lesson-header">
+        <div class="lesson-number" id="lesson-num">1</div>
+        <div class="lesson-meta">
+          <div class="lesson-title" id="lesson-title">Título de la lección</div>
+          <div class="lesson-subtitle" id="lesson-subtitle">Subtítulo</div>
+        </div>
+        <div class="lesson-xp-badge" id="lesson-xp">+50 pts</div>
+      </div>
+
+      <div class="lesson-tabs" id="lesson-tabs"></div>
+
+      <div id="tab-content"></div>
+
+      <div id="lesson-nav">
+        <button id="btn-prev" onclick="prevLesson()">← Anterior</button>
+        <button id="btn-next-lesson" onclick="nextLesson()">Siguiente →</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+// ==================== CURRICULUM DATA ====================
+const curriculum = {
+  html: [
+    {
+      id: 'html-1',
+      title: '¿Qué es HTML?',
+      subtitle: 'Introducción al lenguaje de la web',
+      xp: 50,
+      intro: {
+        title: '¿Qué es HTML?',
+        content: `
+          <h3>🌐 ¡Bienvenido a tu primera lección!</h3>
+          <p>HTML significa <strong>HyperText Markup Language</strong> (Lenguaje de Marcado de Hipertexto). Es el "esqueleto" de todas las páginas web que ves en internet.</p>
+          <p>Imagina que quieres construir una casa 🏠. Antes de pintarla y decorarla, primero necesitas los ladrillos y la estructura. ¡Eso es exactamente lo que hace HTML!</p>
+          <div class="tip-box">
+            <div class="tip-label">💡 ¿Sabías que?</div>
+            Cuando visitas cualquier página web, tu navegador está leyendo código HTML. ¡Todo lo que ves en internet fue creado con HTML!
+          </div>
+          <h3>🏷️ ¿Qué son las etiquetas?</h3>
+          <p>HTML usa <strong>etiquetas</strong> (tags) para decirle al navegador qué mostrar. Las etiquetas tienen este formato:</p>
+          <div class="code-highlight"><span class="tag">&lt;etiqueta&gt;</span> Contenido aquí <span class="tag">&lt;/etiqueta&gt;</span></div>
+          <p>La mayoría de etiquetas tienen una <strong>etiqueta de apertura</strong> <code class="tag-inline">&lt;etiqueta&gt;</code> y una <strong>etiqueta de cierre</strong> <code class="tag-inline">&lt;/etiqueta&gt;</code> con una barra al inicio.</p>
+          <div class="tip-box">
+            <div class="tip-label">🎯 Regla importante</div>
+            ¡Siempre debes cerrar las etiquetas que abres! Si abres <code class="tag-inline">&lt;p&gt;</code>, debes cerrarlo con <code class="tag-inline">&lt;/p&gt;</code>.
+          </div>
+          <h3>📄 La estructura básica</h3>
+          <p>Todo documento HTML tiene una estructura básica obligatoria:</p>
+          <div class="code-highlight"><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+  <span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Mi primera página<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;/head&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+    <span class="comment">&lt;!-- Aquí va el contenido visible --&gt;</span>
+  <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
+        `
+      },
+      examples: [
+        {
+          label: 'Mi primera página HTML',
+          code: `<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi página</title>
+  </head>
+  <body>
+    <h1>¡Hola Mundo!</h1>
+    <p>Esta es mi primera
+    página web. 🎉</p>
+  </body>
+</html>`,
+          preview: `<h1>¡Hola Mundo!</h1><p>Esta es mi primera página web. 🎉</p>`
+        }
+      ],
+      quiz: [
+        {
+          question: '¿Qué significa HTML?',
+          options: ['HyperText Markup Language','HyperText Making Links','Hyper Transfer Markup Lines','HyperText Modern Language'],
+          correct: 0,
+          feedback: '¡Correcto! HTML = HyperText Markup Language, el lenguaje de marcado de hipertexto.'
+        },
+        {
+          question: '¿Cómo se cierra la etiqueta <p>?',
+          options: ['<p/>','</p>','<close p>','<end p>'],
+          correct: 1,
+          feedback: '¡Excelente! Las etiquetas se cierran con una barra "/" antes del nombre: </p>'
+        },
+        {
+          question: '¿Dónde va el contenido visible de la página?',
+          options: ['En el <head>','En el <title>','En el <body>','En el <!DOCTYPE>'],
+          correct: 2,
+          feedback: '¡Muy bien! Todo lo que el usuario ve va dentro del <body>.'
+        }
+      ],
+      challenge: {
+        title: '¡Tu primera página!',
+        instructions: 'Escribe el código HTML para crear una página con un título que diga tu nombre y un párrafo que diga "¡Estoy aprendiendo HTML!"',
+        hints: ['Usa <h1> para el título grande','Usa <p> para el párrafo','Recuerda cerrar todas las etiquetas'],
+        starterCode: `<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi página</title>
+  </head>
+  <body>
+    <!-- Escribe tu código aquí -->
+    
+  </body>
+</html>`,
+        checkFn: (code) => code.includes('<h1>') && code.includes('<p>') && code.includes('</h1>') && code.includes('</p>')
+      }
+    },
+    {
+      id: 'html-2',
+      title: 'Encabezados y Párrafos',
+      subtitle: 'Organiza el texto de tu página',
+      xp: 60,
+      intro: {
+        content: `
+          <h3>📝 Encabezados: Los títulos de tu página</h3>
+          <p>HTML tiene 6 niveles de encabezados, del más grande al más pequeño. Son como los títulos de un libro:</p>
+          <div class="code-highlight"><span class="tag">&lt;h1&gt;</span>Título principal<span class="tag">&lt;/h1&gt;</span>   <span class="comment">&lt;!-- El más grande --&gt;</span>
+<span class="tag">&lt;h2&gt;</span>Subtítulo<span class="tag">&lt;/h2&gt;</span>
+<span class="tag">&lt;h3&gt;</span>Sección<span class="tag">&lt;/h3&gt;</span>
+<span class="tag">&lt;h4&gt;</span>Subsección<span class="tag">&lt;/h4&gt;</span>
+<span class="tag">&lt;h5&gt;</span>Pequeño<span class="tag">&lt;/h5&gt;</span>
+<span class="tag">&lt;h6&gt;</span>El más pequeño<span class="tag">&lt;/h6&gt;</span></div>
+          <div class="tip-box">
+            <div class="tip-label">🎯 Regla</div>
+            Cada página debe tener <strong>solo un &lt;h1&gt;</strong>. Es el título principal, ¡como la portada de un libro!
+          </div>
+          <h3>📄 Párrafos de texto</h3>
+          <p>Para escribir texto normal, usamos la etiqueta <code class="tag-inline">&lt;p&gt;</code> (de "paragraph"):</p>
+          <div class="code-highlight"><span class="tag">&lt;p&gt;</span>Este es un párrafo normal. Puede tener 
+mucho texto adentro.<span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;p&gt;</span>Este es otro párrafo. El navegador
+automáticamente pone espacio entre ellos.<span class="tag">&lt;/p&gt;</span></div>
+          <h3>✏️ Texto en negrita e itálica</h3>
+          <div class="code-highlight"><span class="tag">&lt;strong&gt;</span>Este texto es <b>negrita</b><span class="tag">&lt;/strong&gt;</span>
+<span class="tag">&lt;em&gt;</span>Este texto es <i>itálica</i><span class="tag">&lt;/em&gt;</span></div>
+        `
+      },
+      examples: [
+        {
+          label: 'Usando encabezados y párrafos',
+          code: `<h1>Mi Blog</h1>
+<h2>Primera entrada</h2>
+<p>Hoy aprendí <strong>HTML</strong>.
+¡Es muy divertido!</p>
+<h2>Segunda entrada</h2>
+<p>Los encabezados son
+<em>muy útiles</em>.</p>`,
+          preview: `<h1>Mi Blog</h1><h2>Primera entrada</h2><p>Hoy aprendí <strong>HTML</strong>. ¡Es muy divertido!</p><h2>Segunda entrada</h2><p>Los encabezados son <em>muy útiles</em>.</p>`
+        }
+      ],
+      quiz: [
+        { question: '¿Cuántos niveles de encabezados tiene HTML?', options: ['3','4','6','8'], correct: 2, feedback: '¡Correcto! HTML tiene 6 niveles: del h1 (más grande) al h6 (más pequeño).' },
+        { question: '¿Qué etiqueta hace el texto en negrita?', options: ['<b>','<bold>','<strong>','<text>'], correct: 2, feedback: '¡Bien! <strong> es la etiqueta correcta para negrita semántica. También existe <b>.' },
+        { question: '¿Cuántos <h1> debe tener una página?', options: ['Cuantos quieras','Solo uno','Dos como máximo','Ninguno'], correct: 1, feedback: '¡Perfecto! Cada página debe tener solo un <h1>, que es el título principal.' }
+      ],
+      challenge: {
+        title: '¡Crea tu perfil!',
+        instructions: 'Crea una mini página de perfil con: tu nombre en un h1, "Sobre mí" en un h2, un párrafo describiendo quién eres, y tu hobby favorito en negrita.',
+        hints: ['Usa <h1> para tu nombre','Usa <h2> para "Sobre mí"','Usa <strong> para el hobby'],
+        starterCode: `<h1><!-- Tu nombre aquí --></h1>
+<h2>Sobre mí</h2>
+<p><!-- Descríbete aquí, con tu hobby en <strong> --></p>`,
+        checkFn: (code) => code.includes('<h1>') && code.includes('<h2>') && code.includes('<p>') && code.includes('<strong>')
+      }
+    },
+    {
+      id: 'html-3',
+      title: 'Listas',
+      subtitle: 'Organiza información con listas',
+      xp: 60,
+      intro: {
+        content: `
+          <h3>📋 Tipos de listas en HTML</h3>
+          <p>HTML tiene dos tipos principales de listas:</p>
+          <h3>🔸 Lista sin orden (ul - unordered list)</h3>
+          <p>Usa puntos (•) para cada elemento. Perfecta para ingredientes, características, etc.</p>
+          <div class="code-highlight"><span class="tag">&lt;ul&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Manzanas<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Naranjas<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Bananas<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span></div>
+          <h3>🔢 Lista ordenada (ol - ordered list)</h3>
+          <p>Usa números 1, 2, 3... Perfecta para pasos, instrucciones, top 10, etc.</p>
+          <div class="code-highlight"><span class="tag">&lt;ol&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Primero esto<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Luego esto<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Por último esto<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ol&gt;</span></div>
+          <div class="tip-box">
+            <div class="tip-label">💡 Truco</div>
+            <strong>ul</strong> = sin orden = puntos • • •<br>
+            <strong>ol</strong> = ordenada = números 1. 2. 3.<br>
+            <strong>li</strong> = list item = cada elemento de la lista
+          </div>
+        `
+      },
+      examples: [
+        {
+          label: 'Listas en acción',
+          code: `<h2>Mis frutas favoritas</h2>
+<ul>
+  <li>🍎 Manzana</li>
+  <li>🍊 Naranja</li>
+  <li>🍌 Banana</li>
+</ul>
+
+<h2>Cómo hacer HTML</h2>
+<ol>
+  <li>Abre un editor</li>
+  <li>Escribe el código</li>
+  <li>¡Guarda y listo!</li>
+</ol>`,
+          preview: `<h2>Mis frutas favoritas</h2><ul><li>🍎 Manzana</li><li>🍊 Naranja</li><li>🍌 Banana</li></ul><h2>Cómo hacer HTML</h2><ol><li>Abre un editor</li><li>Escribe el código</li><li>¡Guarda y listo!</li></ol>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué significa "ul" en HTML?', options: ['Under List','Unordered List','Ultra List','Unique List'], correct: 1, feedback: '¡Correcto! ul = Unordered List = lista sin orden (con puntos).' },
+        { question: '¿Qué etiqueta representa cada elemento de una lista?', options: ['<item>','<element>','<li>','<list>'], correct: 2, feedback: '¡Muy bien! <li> = list item = cada elemento dentro de una lista.' },
+        { question: '¿Cuándo usarías una lista ordenada (ol)?', options: ['Para una lista de amigos','Para los pasos de una receta','Para colores favoritos','Para nombres de animales'], correct: 1, feedback: '¡Perfecto! Las listas ordenadas son ideales cuando el orden importa, como en recetas o pasos.' }
+      ],
+      challenge: {
+        title: '¡Mi lista favorita!',
+        instructions: 'Crea una página con: una lista desordenada con tus 3 comidas favoritas, y una lista ordenada con los pasos para hacer tu comida favorita (mínimo 3 pasos).',
+        hints: ['Usa <ul> para comidas favoritas','Usa <ol> para los pasos','Cada item va en <li>'],
+        starterCode: `<h2>Mis comidas favoritas</h2>
+<ul>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<h2>Cómo preparar ________</h2>
+<ol>
+  <li></li>
+  <li></li>
+  <li></li>
+</ol>`,
+        checkFn: (code) => code.includes('<ul>') && code.includes('<ol>') && (code.match(/<li>/g)||[]).length >= 6
+      }
+    },
+    {
+      id: 'html-4',
+      title: 'Enlaces (Links)',
+      subtitle: 'Conecta páginas con el atributo href',
+      xp: 70,
+      intro: {
+        content: `
+          <h3>🔗 ¿Qué es un enlace?</h3>
+          <p>Los enlaces (links) son lo que hace que internet sea una red conectada. Con ellos puedes ir de una página a otra con un solo clic.</p>
+          <p>En HTML usamos la etiqueta <code class="tag-inline">&lt;a&gt;</code> (de "anchor" = ancla) para crear enlaces:</p>
+          <div class="code-highlight"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://www.google.com"</span><span class="tag">&gt;</span>
+  Ir a Google
+<span class="tag">&lt;/a&gt;</span></div>
+          <h3>🏷️ El atributo href</h3>
+          <p>El atributo <code class="keyword-inline">href</code> le dice al navegador <strong>a dónde ir</strong> cuando alguien haga clic.</p>
+          <div class="tip-box">
+            <div class="tip-label">💡 Tipos de enlaces</div>
+            <strong>Externo:</strong> <code>href="https://google.com"</code> - Va a otra web<br>
+            <strong>Interno:</strong> <code>href="pagina2.html"</code> - Va a otra página tuya<br>
+            <strong>Email:</strong> <code>href="mailto:yo@email.com"</code> - Abre el correo
+          </div>
+          <h3>🪟 Abrir en nueva pestaña</h3>
+          <div class="code-highlight"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://google.com"</span> <span class="attr">target</span>=<span class="val">"_blank"</span><span class="tag">&gt;</span>
+  Abrir en nueva pestaña
+<span class="tag">&lt;/a&gt;</span></div>
+          <p>Con <code class="keyword-inline">target="_blank"</code> el enlace se abre en una nueva pestaña, sin cerrar tu página.</p>
+        `
+      },
+      examples: [
+        {
+          label: 'Creando enlaces',
+          code: `<h2>Mis sitios favoritos</h2>
+<ul>
+  <li>
+    <a href="https://google.com">
+      🔍 Google
+    </a>
+  </li>
+  <li>
+    <a href="https://youtube.com">
+      🎥 YouTube
+    </a>
+  </li>
+</ul>
+<p>
+  <a href="mailto:hola@email.com">
+    📧 Escríbeme
+  </a>
+</p>`,
+          preview: `<h2>Mis sitios favoritos</h2><ul><li><a href="#">🔍 Google</a></li><li><a href="#">🎥 YouTube</a></li></ul><p><a href="#">📧 Escríbeme</a></p>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué significa la etiqueta <a> en HTML?', options: ['Anchor (ancla)','Arrow (flecha)','Action (acción)','Add (agregar)'], correct: 0, feedback: '¡Correcto! <a> viene de "anchor" (ancla). ¡Como un ancla que conecta páginas!' },
+        { question: '¿Qué atributo usa la etiqueta <a> para el destino del enlace?', options: ['src','link','url','href'], correct: 3, feedback: '¡Muy bien! href es el atributo que indica el destino del enlace.' },
+        { question: '¿Qué valor de "target" abre el enlace en una nueva pestaña?', options: ['_new','_tab','_blank','_open'], correct: 2, feedback: '¡Perfecto! target="_blank" abre el enlace en una nueva pestaña del navegador.' }
+      ],
+      challenge: {
+        title: '¡Mi página de recursos!',
+        instructions: 'Crea una página con un título "Mis sitios favoritos", y una lista con al menos 3 enlaces a sitios web que conozcas.',
+        hints: ['Usa <a href="URL">Texto</a>','Puedes poner emojis en el texto del enlace','Cada enlace va dentro de un <li>'],
+        starterCode: `<h1>Mis sitios favoritos</h1>
+<ul>
+  <li><a href=""><!-- nombre del sitio --></a></li>
+  <li><a href=""><!-- nombre del sitio --></a></li>
+  <li><a href=""><!-- nombre del sitio --></a></li>
+</ul>`,
+        checkFn: (code) => (code.match(/<a /gi)||[]).length >= 3 && code.includes('href')
+      }
+    },
+    {
+      id: 'html-5',
+      title: 'Imágenes',
+      subtitle: 'Agrega imágenes a tu página',
+      xp: 70,
+      intro: {
+        content: `
+          <h3>🖼️ La etiqueta de imagen</h3>
+          <p>Para mostrar imágenes usamos la etiqueta <code class="tag-inline">&lt;img&gt;</code>. ¡Atención! Esta etiqueta es especial: <strong>no tiene etiqueta de cierre</strong>.</p>
+          <div class="code-highlight"><span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"mi-foto.jpg"</span> <span class="attr">alt</span>=<span class="val">"Descripción"</span><span class="tag">&gt;</span></div>
+          <h3>📋 Atributos importantes de img</h3>
+          <div class="tip-box">
+            <div class="tip-label">🏷️ Atributos</div>
+            <strong>src</strong> = source = la dirección de la imagen<br>
+            <strong>alt</strong> = alternate text = texto si la imagen no carga<br>
+            <strong>width</strong> = ancho en píxeles o porcentaje<br>
+            <strong>height</strong> = alto en píxeles o porcentaje
+          </div>
+          <div class="code-highlight"><span class="tag">&lt;img</span> 
+  <span class="attr">src</span>=<span class="val">"https://picsum.photos/200"</span>
+  <span class="attr">alt</span>=<span class="val">"Una imagen aleatoria"</span>
+  <span class="attr">width</span>=<span class="val">"200"</span>
+<span class="tag">&gt;</span></div>
+          <div class="tip-box">
+            <div class="tip-label">♿ Importante: el atributo alt</div>
+            Siempre pon un texto descriptivo en <code>alt</code>. Esto ayuda a las personas con discapacidad visual y también cuando la imagen no carga.
+          </div>
+          <h3>🌐 Imágenes de internet</h3>
+          <p>Puedes usar URLs de imágenes de internet directamente en el <code>src</code>:</p>
+          <div class="code-highlight"><span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"https://picsum.photos/300/200"</span> <span class="attr">alt</span>=<span class="val">"Foto"</span><span class="tag">&gt;</span></div>
+        `
+      },
+      examples: [
+        {
+          label: 'Mostrando imágenes',
+          code: `<h2>Galería de fotos</h2>
+
+<img src="https://picsum.photos/200/150?1"
+     alt="Foto 1"
+     width="200">
+
+<p>Una foto bonita 🌄</p>
+
+<img src="https://picsum.photos/200/150?2"
+     alt="Foto 2"
+     width="200">`,
+          preview: `<h2>Galería de fotos</h2><img src="https://picsum.photos/200/150?1" alt="Foto 1" width="200"><p>Una foto bonita 🌄</p><img src="https://picsum.photos/200/150?2" alt="Foto 2" width="200">`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué atributo de <img> indica la dirección de la imagen?', options: ['href','link','src','path'], correct: 2, feedback: '¡Correcto! src (source) indica de dónde viene la imagen.' },
+        { question: '¿Para qué sirve el atributo "alt" en una imagen?', options: ['Para cambiar el tamaño','Para texto descriptivo si la imagen no carga','Para hacer la imagen clicable','Para animar la imagen'], correct: 1, feedback: '¡Muy bien! alt proporciona texto alternativo cuando la imagen no puede mostrarse.' },
+        { question: '¿La etiqueta <img> tiene etiqueta de cierre?', options: ['Sí, siempre','No, es una etiqueta vacía','Solo a veces','Depende del tipo de imagen'], correct: 1, feedback: '¡Perfecto! <img> es una etiqueta "vacía" que no necesita cierre.' }
+      ],
+      challenge: {
+        title: '¡Mi galería!',
+        instructions: 'Crea una mini galería con un título h1, y al menos 2 imágenes usando URLs de picsum.photos (puedes usar https://picsum.photos/200/150?numero). Cada imagen debe tener su atributo alt.',
+        hints: ['URL ejemplo: https://picsum.photos/200/150?1','Cambia el número al final para diferentes imágenes','No olvides el atributo alt'],
+        starterCode: `<h1>Mi Galería de Fotos</h1>
+
+<img src="https://picsum.photos/200/150?1" 
+     alt=""
+     width="200">
+
+<img src="" 
+     alt=""
+     width="200">`,
+        checkFn: (code) => (code.match(/<img/gi)||[]).length >= 2 && (code.match(/alt=/gi)||[]).length >= 2
+      }
+    },
+    {
+      id: 'html-6',
+      title: 'Divs y Spans',
+      subtitle: 'Agrupa y organiza el contenido',
+      xp: 80,
+      intro: {
+        content: `
+          <h3>📦 ¿Qué es un div?</h3>
+          <p>El <code class="tag-inline">&lt;div&gt;</code> es como una <strong>caja invisible</strong> que agrupa elementos. Es una de las etiquetas más usadas en HTML.</p>
+          <div class="code-highlight"><span class="tag">&lt;div&gt;</span>
+  <span class="tag">&lt;h2&gt;</span>Sección 1<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Contenido de esta sección<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;div&gt;</span>
+  <span class="tag">&lt;h2&gt;</span>Sección 2<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Otro contenido<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span></div>
+          <div class="tip-box">
+            <div class="tip-label">📦 div vs span</div>
+            <strong>div</strong> = Block = ocupa toda una línea = para agrupar secciones grandes<br>
+            <strong>span</strong> = Inline = va dentro del texto = para marcar palabras específicas
+          </div>
+          <h3>✨ ¿Qué es un span?</h3>
+          <p>El <code class="tag-inline">&lt;span&gt;</code> es para marcar partes <strong>dentro de un texto</strong>:</p>
+          <div class="code-highlight"><span class="tag">&lt;p&gt;</span>
+  Mi color favorito es 
+  <span class="tag">&lt;span</span> <span class="attr">style</span>=<span class="val">"color:blue"</span><span class="tag">&gt;</span>azul<span class="tag">&lt;/span&gt;</span>
+  ¡me encanta!
+<span class="tag">&lt;/p&gt;</span></div>
+          <h3>🏷️ Atributos class e id</h3>
+          <p>Podemos dar nombres a los divs con <code class="keyword-inline">class</code> e <code class="keyword-inline">id</code>:</p>
+          <div class="code-highlight"><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"tarjeta"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"header"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span></div>
+        `
+      },
+      examples: [
+        {
+          label: 'Divs para organizar tarjetas',
+          code: `<div style="border:2px solid blue; padding:10px; margin:5px">
+  <h3>🎮 Videojuegos</h3>
+  <p>Me <span style="color:red">encanta</span> jugar.</p>
+</div>
+
+<div style="border:2px solid green; padding:10px; margin:5px">
+  <h3>🎨 Arte</h3>
+  <p>También me <span style="color:orange">gusta</span> dibujar.</p>
+</div>`,
+          preview: `<div style="border:2px solid blue; padding:10px; margin:5px"><h3>🎮 Videojuegos</h3><p>Me <span style="color:red">encanta</span> jugar.</p></div><div style="border:2px solid green; padding:10px; margin:5px"><h3>🎨 Arte</h3><p>También me <span style="color:orange">gusta</span> dibujar.</p></div>`
+        }
+      ],
+      quiz: [
+        { question: '¿Cuál es la diferencia entre div y span?', options: ['div es grande, span es pequeño','div ocupa toda la línea, span va dentro del texto','div es para imágenes, span para texto','No hay diferencia'], correct: 1, feedback: '¡Correcto! div es block (línea completa) y span es inline (dentro del texto).' },
+        { question: '¿Para qué sirve el atributo "class"?', options: ['Para dar un nombre único','Para dar un nombre que puede repetirse','Para agregar color','Para hacer el elemento invisible'], correct: 1, feedback: '¡Muy bien! class puede usarse en múltiples elementos. id debe ser único.' },
+        { question: '¿Qué hace el <div>?', options: ['Muestra imágenes','Crea enlaces','Agrupa elementos en un bloque','Cambia el color del texto'], correct: 2, feedback: '¡Perfecto! El div agrupa elementos para organizarlos y aplicarles estilos.' }
+      ],
+      challenge: {
+        title: '¡Tarjetas de presentación!',
+        instructions: 'Crea 2 tarjetas usando divs. Cada tarjeta debe tener un título (h3), un párrafo, y usar span para resaltar una palabra en color.',
+        hints: ['Usa style="border:1px solid color" para el borde','span permite estilos inline','Cada tarjeta es un <div> separado'],
+        starterCode: `<div style="border: 2px solid purple; padding: 15px; margin: 10px;">
+  <h3>Tarjeta 1</h3>
+  <p>Este es mi <span style="color:___">___</span> favorito.</p>
+</div>
+
+<div style="">
+  <h3>Tarjeta 2</h3>
+  <p></p>
+</div>`,
+        checkFn: (code) => (code.match(/<div/gi)||[]).length >= 2 && code.includes('<span') && (code.match(/<h3>/gi)||[]).length >= 2
+      }
+    },
+    {
+      id: 'html-7',
+      title: 'Formularios',
+      subtitle: 'Crea formularios para recibir datos',
+      xp: 90,
+      intro: {
+        content: `
+          <h3>📋 ¿Qué es un formulario?</h3>
+          <p>Los formularios permiten que los usuarios <strong>ingresen información</strong>. ¡Los ves en todas partes! Registro, login, búsqueda, comentarios...</p>
+          <div class="code-highlight"><span class="tag">&lt;form&gt;</span>
+  <span class="comment">&lt;!-- Aquí van los campos --&gt;</span>
+<span class="tag">&lt;/form&gt;</span></div>
+          <h3>🔤 Tipos de inputs</h3>
+          <div class="code-highlight"><span class="comment">&lt;!-- Texto normal --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">placeholder</span>=<span class="val">"Tu nombre"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- Contraseña --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"password"</span> <span class="attr">placeholder</span>=<span class="val">"Tu contraseña"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- Email --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"email"</span> <span class="attr">placeholder</span>=<span class="val">"Tu email"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- Número --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"number"</span> <span class="attr">min</span>=<span class="val">"1"</span> <span class="attr">max</span>=<span class="val">"100"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- Botón enviar --&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">type</span>=<span class="val">"submit"</span><span class="tag">&gt;</span>Enviar<span class="tag">&lt;/button&gt;</span></div>
+          <h3>🏷️ La etiqueta label</h3>
+          <p>El <code class="tag-inline">&lt;label&gt;</code> describe qué es cada campo:</p>
+          <div class="code-highlight"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="val">"nombre"</span><span class="tag">&gt;</span>Tu nombre:<span class="tag">&lt;/label&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">id</span>=<span class="val">"nombre"</span><span class="tag">&gt;</span></div>
+        `
+      },
+      examples: [
+        {
+          label: 'Formulario de registro',
+          code: `<form>
+  <label>Nombre:</label><br>
+  <input type="text" 
+    placeholder="Tu nombre"><br><br>
+  
+  <label>Email:</label><br>
+  <input type="email" 
+    placeholder="tu@email.com"><br><br>
+  
+  <label>Edad:</label><br>
+  <input type="number" 
+    min="5" max="18"><br><br>
+  
+  <button type="submit">
+    ✅ Registrarme
+  </button>
+</form>`,
+          preview: `<form><label>Nombre:</label><br><input type="text" placeholder="Tu nombre"><br><br><label>Email:</label><br><input type="email" placeholder="tu@email.com"><br><br><label>Edad:</label><br><input type="number" min="5" max="18"><br><br><button type="submit">✅ Registrarme</button></form>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué tipo de input oculta lo que escribe el usuario?', options: ['type="hidden"','type="secret"','type="password"','type="private"'], correct: 2, feedback: '¡Correcto! type="password" muestra los caracteres como puntos •••.' },
+        { question: '¿Para qué sirve el placeholder en un input?', options: ['Para poner el valor por defecto permanente','Para mostrar texto de ayuda que desaparece al escribir','Para bloquear el input','Para validar el email'], correct: 1, feedback: '¡Muy bien! El placeholder es texto de ejemplo que desaparece cuando empiezas a escribir.' },
+        { question: '¿Qué hace la etiqueta <label>?', options: ['Crea un input de texto','Describe para qué sirve un campo del formulario','Envía el formulario','Crea un botón'], correct: 1, feedback: '¡Perfecto! <label> describe qué información debe ir en cada campo del formulario.' }
+      ],
+      challenge: {
+        title: '¡Formulario de contacto!',
+        instructions: 'Crea un formulario de contacto con: campo de nombre (text), campo de email, un área de texto para el mensaje, y un botón de enviar.',
+        hints: ['Para área grande de texto usa: <textarea></textarea>','Los inputs no necesitan cierre','Usa <br> para saltos de línea'],
+        starterCode: `<h2>📬 Contáctame</h2>
+<form>
+  <label>Nombre:</label><br>
+  <input type="text" placeholder="Tu nombre"><br><br>
+  
+  <label>Email:</label><br>
+  <!-- Input de email aquí --><br><br>
+  
+  <label>Mensaje:</label><br>
+  <!-- Textarea aquí --><br><br>
+  
+  <!-- Botón enviar -->
+</form>`,
+        checkFn: (code) => code.includes('type="email"') && code.includes('<textarea') && code.includes('<button')
+      }
+    },
+    {
+      id: 'html-8',
+      title: 'Tablas',
+      subtitle: 'Organiza datos en filas y columnas',
+      xp: 80,
+      intro: {
+        content: `
+          <h3>📊 ¿Para qué sirven las tablas?</h3>
+          <p>Las tablas son perfectas para mostrar datos organizados en <strong>filas y columnas</strong>: horarios, precios, estadísticas, resultados...</p>
+          <h3>🏗️ Estructura de una tabla</h3>
+          <div class="code-highlight"><span class="tag">&lt;table&gt;</span>
+  <span class="comment">&lt;!-- Encabezado de la tabla --&gt;</span>
+  <span class="tag">&lt;thead&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+      <span class="tag">&lt;th&gt;</span>Nombre<span class="tag">&lt;/th&gt;</span>
+      <span class="tag">&lt;th&gt;</span>Edad<span class="tag">&lt;/th&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;/thead&gt;</span>
+  <span class="comment">&lt;!-- Cuerpo de la tabla --&gt;</span>
+  <span class="tag">&lt;tbody&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+      <span class="tag">&lt;td&gt;</span>Ana<span class="tag">&lt;/td&gt;</span>
+      <span class="tag">&lt;td&gt;</span>10<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;/tbody&gt;</span>
+<span class="tag">&lt;/table&gt;</span></div>
+          <div class="tip-box">
+            <div class="tip-label">📖 Las etiquetas de tabla</div>
+            <strong>table</strong> = la tabla entera<br>
+            <strong>thead</strong> = encabezado (header)<br>
+            <strong>tbody</strong> = cuerpo de datos<br>
+            <strong>tr</strong> = table row = una fila<br>
+            <strong>th</strong> = table header = celda de encabezado (negrita)<br>
+            <strong>td</strong> = table data = celda de datos
+          </div>
+        `
+      },
+      examples: [
+        {
+          label: 'Tabla de calificaciones',
+          code: `<table border="1" 
+  style="border-collapse:collapse">
+  <thead>
+    <tr style="background:#ddd">
+      <th>Materia</th>
+      <th>Nota</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Matemáticas</td>
+      <td>9.5</td>
+      <td>✅ Aprobado</td>
+    </tr>
+    <tr>
+      <td>Ciencias</td>
+      <td>8.0</td>
+      <td>✅ Aprobado</td>
+    </tr>
+  </tbody>
+</table>`,
+          preview: `<table border="1" style="border-collapse:collapse"><thead><tr style="background:#ddd"><th>Materia</th><th>Nota</th><th>Estado</th></tr></thead><tbody><tr><td>Matemáticas</td><td>9.5</td><td>✅ Aprobado</td></tr><tr><td>Ciencias</td><td>8.0</td><td>✅ Aprobado</td></tr></tbody></table>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué etiqueta representa una fila en una tabla?', options: ['<row>','<tr>','<td>','<line>'], correct: 1, feedback: '¡Correcto! tr = table row = una fila de la tabla.' },
+        { question: '¿Cuál es la diferencia entre <th> y <td>?', options: ['No hay diferencia','th es para encabezados (aparece en negrita), td es para datos','th es horizontal, td es vertical','th es más grande que td'], correct: 1, feedback: '¡Muy bien! th (table header) muestra el texto en negrita como encabezado, td son los datos normales.' },
+        { question: '¿Qué etiqueta contiene toda la tabla?', options: ['<grid>','<data>','<table>','<matrix>'], correct: 2, feedback: '¡Perfecto! Todo el contenido de la tabla va dentro de <table>...</table>.' }
+      ],
+      challenge: {
+        title: '¡Mi horario escolar!',
+        instructions: 'Crea una tabla que muestre tu horario. Debe tener encabezados (th) para los días de la semana, y al menos 3 filas con materias.',
+        hints: ['Usa thead para la fila de encabezados','Cada fila es un <tr>','Usa border="1" en la tabla para ver los bordes'],
+        starterCode: `<h2>📅 Mi Horario</h2>
+<table border="1" style="border-collapse:collapse; padding:5px">
+  <thead>
+    <tr>
+      <th>Hora</th>
+      <th>Lunes</th>
+      <th>Martes</th>
+      <th>Miércoles</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8:00 AM</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <!-- Agrega más filas -->
+  </tbody>
+</table>`,
+        checkFn: (code) => code.includes('<table') && code.includes('<tr>') && (code.match(/<th>/gi)||[]).length >= 3 && (code.match(/<td>/gi)||[]).length >= 6
+      }
+    }
+  ],
+  css: [
+    {
+      id: 'css-1',
+      title: '¿Qué es CSS?',
+      subtitle: 'Dale estilo y color a tu página',
+      xp: 50,
+      intro: {
+        content: `
+          <h3>🎨 ¿Qué es CSS?</h3>
+          <p>CSS significa <strong>Cascading Style Sheets</strong> (Hojas de Estilo en Cascada). Si HTML es el esqueleto, CSS es la ropa y el maquillaje de tu página web.</p>
+          <p>Con CSS puedes cambiar colores, tamaños, fuentes, posiciones... ¡todo lo visual!</p>
+          <h3>📝 La sintaxis de CSS</h3>
+          <div class="code-highlight"><span class="selector">selector</span> {
+  <span class="prop">propiedad</span>: <span class="val">valor</span>;
+  <span class="prop">otra-propiedad</span>: <span class="val">otro-valor</span>;
+}</div>
+          <div class="tip-box">
+            <div class="tip-label">🎯 Las 3 partes</div>
+            <strong>Selector:</strong> ¿A qué elemento aplico el estilo? (p, h1, div...)<br>
+            <strong>Propiedad:</strong> ¿Qué quiero cambiar? (color, font-size...)<br>
+            <strong>Valor:</strong> ¿A qué lo cambio? (red, 20px, bold...)
+          </div>
+          <h3>📍 Formas de agregar CSS</h3>
+          <div class="code-highlight"><span class="comment">/* 1. Inline - directo en la etiqueta */</span>
+<span class="tag">&lt;p</span> <span class="attr">style</span>=<span class="val">"color: red;"</span><span class="tag">&gt;</span>Hola<span class="tag">&lt;/p&gt;</span>
+
+<span class="comment">/* 2. Internal - dentro de &lt;style&gt; */</span>
+<span class="tag">&lt;style&gt;</span>
+  <span class="selector">p</span> { <span class="prop">color</span>: <span class="val">red</span>; }
+<span class="tag">&lt;/style&gt;</span>
+
+<span class="comment">/* 3. External - archivo .css separado */</span>
+<span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"stylesheet"</span> <span class="attr">href</span>=<span class="val">"estilo.css"</span><span class="tag">&gt;</span></div>
+        `
+      },
+      examples: [
+        {
+          label: 'Mi primer CSS',
+          code: `<style>
+  h1 {
+    color: purple;
+    font-size: 30px;
+  }
+  p {
+    color: darkblue;
+    font-size: 16px;
+  }
+</style>
+
+<h1>¡CSS es genial!</h1>
+<p>Ahora mi texto tiene color.</p>`,
+          preview: `<style>h1{color:purple;font-size:30px;}p{color:darkblue;font-size:16px;}</style><h1>¡CSS es genial!</h1><p>Ahora mi texto tiene color.</p>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué significa CSS?', options: ['Cascading Style Sheets','Computer Style System','Creative Style Syntax','Color Style Script'], correct: 0, feedback: '¡Correcto! CSS = Cascading Style Sheets = Hojas de Estilo en Cascada.' },
+        { question: '¿Cuáles son las 3 partes de una regla CSS?', options: ['Etiqueta, clase, id','Selector, propiedad, valor','Nombre, tipo, datos','Color, tamaño, posición'], correct: 1, feedback: '¡Muy bien! Selector (quién), propiedad (qué cambio), valor (a qué lo cambio).' },
+        { question: '¿Cuál es la forma de agregar CSS directamente en una etiqueta HTML?', options: ['class="..."','style="..."','css="..."','format="..."'], correct: 1, feedback: '¡Perfecto! style="" permite agregar CSS inline directamente en el elemento.' }
+      ],
+      challenge: {
+        title: '¡Tu primer estilo!',
+        instructions: 'Agrega CSS con la etiqueta <style> para: poner el h1 de color morado, el párrafo de color azul oscuro, y el h1 con font-size de 32px.',
+        hints: ['Usa <style> dentro del <head> o al inicio','Selector { propiedad: valor; }','Colores en inglés: purple, darkblue, green...'],
+        starterCode: `<style>
+  h1 {
+    color: /* color aquí */;
+  }
+  p {
+    /* tus estilos aquí */
+  }
+</style>
+
+<h1>¡Mi página con estilo!</h1>
+<p>Este párrafo tiene color.</p>`,
+        checkFn: (code) => code.includes('<style>') && code.includes('color') && code.includes('h1')
+      }
+    },
+    {
+      id: 'css-2',
+      title: 'Colores y Fondos',
+      subtitle: 'Colorea tu mundo web',
+      xp: 60,
+      intro: {
+        content: `
+          <h3>🌈 Formas de poner color en CSS</h3>
+          <p>CSS tiene varias formas de expresar colores:</p>
+          <div class="code-highlight"><span class="comment">/* 1. Nombre del color (en inglés) */</span>
+<span class="selector">p</span> { <span class="prop">color</span>: <span class="val">red</span>; }
+<span class="selector">div</span> { <span class="prop">background-color</span>: <span class="val">lightblue</span>; }
+
+<span class="comment">/* 2. Código hexadecimal (#RRGGBB) */</span>
+<span class="selector">h1</span> { <span class="prop">color</span>: <span class="val">#ff6600</span>; }
+
+<span class="comment">/* 3. RGB (Rojo, Verde, Azul 0-255) */</span>
+<span class="selector">p</span> { <span class="prop">color</span>: <span class="val">rgb(255, 100, 0)</span>; }
+
+<span class="comment">/* 4. RGBA (con transparencia 0-1) */</span>
+<span class="selector">div</span> { <span class="prop">background-color</span>: <span class="val">rgba(0, 0, 255, 0.3)</span>; }</div>
+          <div class="tip-box">
+            <div class="tip-label">🎨 color vs background-color</div>
+            <strong>color:</strong> cambia el color del TEXTO<br>
+            <strong>background-color:</strong> cambia el color del FONDO
+          </div>
+          <h3>🖼️ Imágenes de fondo</h3>
+          <div class="code-highlight"><span class="selector">body</span> {
+  <span class="prop">background-image</span>: <span class="val">url("fondo.jpg")</span>;
+  <span class="prop">background-size</span>: <span class="val">cover</span>;
+  <span class="prop">background-repeat</span>: <span class="val">no-repeat</span>;
+}</div>
+        `
+      },
+      examples: [
+        {
+          label: 'Jugando con colores',
+          code: `<style>
+  body {
+    background-color: #f0f8ff;
+  }
+  h1 {
+    color: #6a0dad;
+    background-color: #e8d5ff;
+    padding: 10px;
+  }
+  p {
+    color: rgb(30, 100, 200);
+  }
+  .destacado {
+    background-color: yellow;
+    color: black;
+  }
+</style>
+
+<h1>¡Colorido!</h1>
+<p>Texto en azul bonito</p>
+<p class="destacado">¡Destacado!</p>`,
+          preview: `<style>body{background-color:#f0f8ff;}h1{color:#6a0dad;background-color:#e8d5ff;padding:10px;}p{color:rgb(30,100,200)}.destacado{background-color:yellow;color:black;}</style><h1>¡Colorido!</h1><p>Texto en azul bonito</p><p class="destacado">¡Destacado!</p>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué propiedad CSS cambia el color del texto?', options: ['text-color','background-color','font-color','color'], correct: 3, feedback: '¡Correcto! La propiedad color cambia el color del texto.' },
+        { question: '¿Qué formato tiene el color hexadecimal?', options: ['(R,G,B)','#RRGGBB','rgb(n,n,n)','hsl(n,n,n)'], correct: 1, feedback: '¡Muy bien! Los colores hex tienen 6 dígitos en base 16: #ff6600, #336699, etc.' },
+        { question: '¿Qué hace rgba(0,0,255,0.5)?', options: ['Rojo semi-transparente','Verde brillante','Azul semi-transparente','Azul sólido'], correct: 2, feedback: '¡Perfecto! rgba es como rgb pero con transparencia. 0=transparente, 1=sólido. 0.5=50% transparente.' }
+      ],
+      challenge: {
+        title: '¡Página colorida!',
+        instructions: 'Crea una página con fondo de color, un h1 con color de texto diferente y fondo propio, y dos párrafos con diferentes colores.',
+        hints: ['background-color para el fondo','color para el texto','Prueba colores como #ff6600, rgb(100,200,50)'],
+        starterCode: `<style>
+  body {
+    background-color: /* tu color de fondo */;
+  }
+  h1 {
+    color: /* color del título */;
+    background-color: /* fondo del título */;
+    padding: 10px;
+  }
+  .parrafo1 { color: /* color 1 */; }
+  .parrafo2 { color: /* color 2 */; }
+</style>
+
+<h1>¡Mi página colorida!</h1>
+<p class="parrafo1">Primer párrafo</p>
+<p class="parrafo2">Segundo párrafo</p>`,
+        checkFn: (code) => code.includes('background-color') && code.includes('color') && (code.match(/color:/gi)||[]).length >= 3
+      }
+    },
+    {
+      id: 'css-3',
+      title: 'Fuentes y Texto',
+      subtitle: 'Cambia el aspecto del texto',
+      xp: 65,
+      intro: {
+        content: `
+          <h3>🔤 Propiedades de texto en CSS</h3>
+          <div class="code-highlight"><span class="comment">/* Familia de fuente */</span>
+<span class="selector">p</span> { <span class="prop">font-family</span>: <span class="val">Arial, sans-serif</span>; }
+
+<span class="comment">/* Tamaño de fuente */</span>
+<span class="selector">h1</span> { <span class="prop">font-size</span>: <span class="val">36px</span>; }
+
+<span class="comment">/* Peso (grosor) */</span>
+<span class="selector">p</span> { <span class="prop">font-weight</span>: <span class="val">bold</span>; }
+
+<span class="comment">/* Estilo itálica */</span>
+<span class="selector">em</span> { <span class="prop">font-style</span>: <span class="val">italic</span>; }
+
+<span class="comment">/* Alineación */</span>
+<span class="selector">h1</span> { <span class="prop">text-align</span>: <span class="val">center</span>; }
+
+<span class="comment">/* Decoración */</span>
+<span class="selector">a</span> { <span class="prop">text-decoration</span>: <span class="val">none</span>; }</div>
+          <div class="tip-box">
+            <div class="tip-label">🌐 Google Fonts</div>
+            ¡Puedes usar fuentes gratis de Google! Solo agrega esto en el head:<br>
+            <code>&lt;link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"&gt;</code><br>
+            Y luego: <code>font-family: 'Roboto', sans-serif;</code>
+          </div>
+        `
+      },
+      examples: [
+        {
+          label: 'Estilos de texto',
+          code: `<style>
+  h1 {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    text-align: center;
+    color: #333;
+  }
+  .grande {
+    font-size: 24px;
+    font-weight: bold;
+    color: purple;
+  }
+  .cursiva {
+    font-style: italic;
+    color: gray;
+  }
+  a { text-decoration: none;
+      color: orange; }
+</style>
+<h1>Estilos de Texto</h1>
+<p class="grande">Grande y negrita</p>
+<p class="cursiva">Cursiva y gris</p>
+<a href="#">Sin subrayado</a>`,
+          preview: `<style>h1{font-family:Georgia,serif;font-size:32px;text-align:center;color:#333;}.grande{font-size:24px;font-weight:bold;color:purple;}.cursiva{font-style:italic;color:gray;}a{text-decoration:none;color:orange;}</style><h1>Estilos de Texto</h1><p class="grande">Grande y negrita</p><p class="cursiva">Cursiva y gris</p><a href="#">Sin subrayado</a>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué propiedad centra el texto horizontalmente?', options: ['align: center','text-align: center','font-align: center','center: true'], correct: 1, feedback: '¡Correcto! text-align: center centra el texto. También puedes usar left, right o justify.' },
+        { question: '¿Qué unidad se usa más para el tamaño de fuente?', options: ['cm','km','px','pt'], correct: 2, feedback: '¡Muy bien! px (píxeles) es la unidad más común para font-size en web.' },
+        { question: '¿Qué valor de font-weight pone el texto en negrita?', options: ['heavy','thick','strong','bold'], correct: 3, feedback: '¡Perfecto! font-weight: bold pone el texto en negrita.' }
+      ],
+      challenge: {
+        title: '¡Estiliza un artículo!',
+        instructions: 'Dale estilo a un artículo: h1 centrado con fuente grande, párrafos con font-family diferente, y texto de 18px. El h1 debe ser de al menos 40px.',
+        hints: ['text-align: center para centrar','font-family: Arial (o cualquier otra)','font-size: 40px para el título'],
+        starterCode: `<style>
+  h1 {
+    text-align: /* centrar */;
+    font-size: /* grande */;
+    color: /* color */;
+  }
+  p {
+    font-family: /* fuente */;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+</style>
+
+<h1>Mi Artículo</h1>
+<p>Este es el primer párrafo de mi artículo.</p>
+<p>Este es el segundo párrafo con buen espaciado.</p>`,
+        checkFn: (code) => code.includes('text-align') && code.includes('font-size') && code.includes('font-family')
+      }
+    },
+    {
+      id: 'css-4',
+      title: 'Box Model',
+      subtitle: 'Padding, border y margin',
+      xp: 80,
+      intro: {
+        content: `
+          <h3>📦 El Modelo de Caja (Box Model)</h3>
+          <p>Cada elemento HTML es una caja. El Box Model define cómo se calcula el tamaño y espacio de esa caja:</p>
+          <div class="code-highlight"><span class="comment">/* DESDE ADENTRO HACIA AFUERA: */</span>
+<span class="selector">div</span> {
+  <span class="comment">/* Contenido: el texto o imágenes */</span>
+  <span class="prop">width</span>: <span class="val">200px</span>;
+  <span class="prop">height</span>: <span class="val">100px</span>;
+  
+  <span class="comment">/* Padding: espacio DENTRO del borde */</span>
+  <span class="prop">padding</span>: <span class="val">20px</span>;
+  
+  <span class="comment">/* Border: el borde visible */</span>
+  <span class="prop">border</span>: <span class="val">2px solid black</span>;
+  
+  <span class="comment">/* Margin: espacio FUERA del borde */</span>
+  <span class="prop">margin</span>: <span class="val">10px</span>;
+}</div>
+          <div class="tip-box">
+            <div class="tip-label">🧅 Como una cebolla</div>
+            Imagina capas de afuera hacia adentro:<br>
+            <strong>margin</strong> → espacio externo (entre elementos)<br>
+            <strong>border</strong> → el borde visible<br>
+            <strong>padding</strong> → espacio interno (entre borde y contenido)<br>
+            <strong>content</strong> → el contenido real
+          </div>
+          <div class="code-highlight"><span class="comment">/* Padding individual por lado */</span>
+<span class="selector">div</span> {
+  <span class="prop">padding-top</span>: <span class="val">10px</span>;
+  <span class="prop">padding-right</span>: <span class="val">20px</span>;
+  <span class="prop">padding-bottom</span>: <span class="val">10px</span>;
+  <span class="prop">padding-left</span>: <span class="val">20px</span>;
+  <span class="comment">/* O en una línea: arriba derecha abajo izquierda */</span>
+  <span class="prop">padding</span>: <span class="val">10px 20px 10px 20px</span>;
+}</div>
+        `
+      },
+      examples: [
+        {
+          label: 'Visualizando el Box Model',
+          code: `<style>
+  .caja {
+    width: 200px;
+    background-color: lightblue;
+    padding: 20px;
+    border: 3px solid darkblue;
+    margin: 15px;
+    color: darkblue;
+    font-weight: bold;
+  }
+</style>
+
+<div class="caja">
+  📦 Soy una caja con padding y borde
+</div>
+
+<div class="caja" style="background:lightgreen; border-color:darkgreen; color:darkgreen">
+  🌱 Otra caja diferente
+</div>`,
+          preview: `<style>.caja{width:200px;background-color:lightblue;padding:20px;border:3px solid darkblue;margin:15px;color:darkblue;font-weight:bold;}</style><div class="caja">📦 Soy una caja con padding y borde</div><div class="caja" style="background:lightgreen;border-color:darkgreen;color:darkgreen">🌱 Otra caja diferente</div>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué propiedad CSS agrega espacio DENTRO del elemento (entre el contenido y el borde)?', options: ['margin','spacing','padding','border'], correct: 2, feedback: '¡Correcto! padding agrega espacio entre el contenido y el borde del elemento.' },
+        { question: '¿Qué propiedad CSS agrega espacio FUERA del elemento (separándolo de otros)?', options: ['padding','spacing','border','margin'], correct: 3, feedback: '¡Muy bien! margin agrega espacio externo, separando el elemento de sus vecinos.' },
+        { question: '¿Cuál es el orden correcto del Box Model de adentro hacia afuera?', options: ['margin, border, padding, content','content, padding, border, margin','border, padding, content, margin','padding, content, border, margin'], correct: 1, feedback: '¡Perfecto! De adentro hacia afuera: content → padding → border → margin.' }
+      ],
+      challenge: {
+        title: '¡Tarjetas con Box Model!',
+        instructions: 'Crea una tarjeta con clase "card" que tenga: width de 250px, padding de 20px, border redondeado (border-radius), y margin para separar del resto.',
+        hints: ['border: 2px solid color','border-radius: 10px para esquinas redondeadas','margin: auto centra el elemento con display:block'],
+        starterCode: `<style>
+  .card {
+    width: 250px;
+    background-color: white;
+    padding: /* espacio interno */;
+    border: 2px solid purple;
+    border-radius: /* esquinas redondeadas */;
+    margin: /* espacio externo */;
+    color: #333;
+  }
+</style>
+
+<div class="card">
+  <h3>🎴 Mi Tarjeta</h3>
+  <p>Esta tarjeta usa el Box Model de CSS.</p>
+</div>`,
+        checkFn: (code) => code.includes('padding') && code.includes('border') && code.includes('border-radius') && code.includes('margin')
+      }
+    },
+    {
+      id: 'css-5',
+      title: 'Flexbox',
+      subtitle: 'Organiza elementos en fila o columna',
+      xp: 90,
+      intro: {
+        content: `
+          <h3>💪 ¿Qué es Flexbox?</h3>
+          <p>Flexbox es una forma poderosa de organizar elementos en una página. Con él puedes alinear y distribuir elementos <strong>fácilmente</strong>.</p>
+          <div class="code-highlight"><span class="selector">.contenedor</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+}</div>
+          <h3>↔️ Dirección: fila o columna</h3>
+          <div class="code-highlight"><span class="selector">.fila</span> { <span class="prop">flex-direction</span>: <span class="val">row</span>; }    <span class="comment">/* horizontal (default) */</span>
+<span class="selector">.columna</span> { <span class="prop">flex-direction</span>: <span class="val">column</span>; } <span class="comment">/* vertical */</span></div>
+          <h3>📐 Alineación</h3>
+          <div class="code-highlight"><span class="selector">.contenedor</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="comment">/* Alineación horizontal */</span>
+  <span class="prop">justify-content</span>: <span class="val">center</span>;    <span class="comment">/* center, flex-start, flex-end, space-between */</span>
+  <span class="comment">/* Alineación vertical */</span>
+  <span class="prop">align-items</span>: <span class="val">center</span>;       <span class="comment">/* center, flex-start, flex-end */</span>
+  <span class="comment">/* Espacio entre elementos */</span>
+  <span class="prop">gap</span>: <span class="val">20px</span>;
+}</div>
+          <div class="tip-box">
+            <div class="tip-label">🎯 justify vs align</div>
+            <strong>justify-content:</strong> alinea en la dirección principal (horizontal en fila)<br>
+            <strong>align-items:</strong> alinea perpendicular (vertical en fila)
+          </div>
+        `
+      },
+      examples: [
+        {
+          label: 'Tarjetas con Flexbox',
+          code: `<style>
+  .grid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .item {
+    background: #6a0dad;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+    min-width: 80px;
+  }
+</style>
+
+<div class="grid">
+  <div class="item">🍎 HTML</div>
+  <div class="item">🎨 CSS</div>
+  <div class="item">⚡ JS</div>
+</div>`,
+          preview: `<style>.grid{display:flex;gap:10px;flex-wrap:wrap;}.item{background:#6a0dad;color:white;padding:15px 20px;border-radius:8px;font-weight:bold;flex:1;text-align:center;min-width:80px;}</style><div class="grid"><div class="item">🍎 HTML</div><div class="item">🎨 CSS</div><div class="item">⚡ JS</div></div>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué valor de display activa Flexbox?', options: ['block','inline','flex','grid'], correct: 2, feedback: '¡Correcto! display: flex activa el modo Flexbox en el contenedor.' },
+        { question: '¿Qué propiedad alinea elementos horizontalmente en Flexbox?', options: ['align-items','text-align','justify-content','float'], correct: 2, feedback: '¡Muy bien! justify-content controla la alineación en el eje principal (horizontal por defecto).' },
+        { question: '¿Qué hace gap en Flexbox?', options: ['Hace los elementos más grandes','Agrega espacio entre los elementos','Centra el contenedor','Cambia la dirección'], correct: 1, feedback: '¡Perfecto! gap agrega espacio entre los elementos hijos del contenedor flex.' }
+      ],
+      challenge: {
+        title: '¡Menú de navegación!',
+        instructions: 'Crea una barra de navegación usando Flexbox. Debe tener un div contenedor con display:flex, justify-content:space-between, y al menos 4 items de menú.',
+        hints: ['display: flex en el contenedor','justify-content: space-between para separar','background oscuro para el nav'],
+        starterCode: `<style>
+  .navbar {
+    display: flex;
+    justify-content: /* distribuir */;
+    align-items: center;
+    background-color: #333;
+    padding: 15px 20px;
+  }
+  .nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+  }
+  .nav-item:hover {
+    color: #f7df1e;
+  }
+</style>
+
+<nav class="navbar">
+  <a class="nav-item" href="#">🏠 Inicio</a>
+  <a class="nav-item" href="#"><!-- item 2 --></a>
+  <a class="nav-item" href="#"><!-- item 3 --></a>
+  <a class="nav-item" href="#"><!-- item 4 --></a>
+</nav>`,
+        checkFn: (code) => code.includes('display: flex') || code.includes('display:flex') && code.includes('justify-content') && (code.match(/nav-item/g)||[]).length >= 4
+      }
+    },
+    {
+      id: 'css-6',
+      title: 'Hover y Transiciones',
+      subtitle: 'Efectos al pasar el ratón',
+      xp: 85,
+      intro: {
+        content: `
+          <h3>🖱️ El selector :hover</h3>
+          <p>Con <code class="keyword-inline">:hover</code> puedes aplicar estilos cuando el usuario pasa el mouse sobre un elemento:</p>
+          <div class="code-highlight"><span class="selector">button</span> {
+  <span class="prop">background-color</span>: <span class="val">blue</span>;
+  <span class="prop">color</span>: <span class="val">white</span>;
+  <span class="prop">padding</span>: <span class="val">10px 20px</span>;
+}
+
+<span class="selector">button:hover</span> {
+  <span class="prop">background-color</span>: <span class="val">darkblue</span>;
+  <span class="prop">transform</span>: <span class="val">scale(1.1)</span>;
+}</div>
+          <h3>✨ Transiciones suaves</h3>
+          <p>La propiedad <code class="keyword-inline">transition</code> hace los cambios de estilo <strong>suaves y animados</strong>:</p>
+          <div class="code-highlight"><span class="selector">button</span> {
+  <span class="prop">background-color</span>: <span class="val">blue</span>;
+  <span class="comment">/* propiedad duración función-de-tiempo delay */</span>
+  <span class="prop">transition</span>: <span class="val">all 0.3s ease</span>;
+}
+
+<span class="selector">button:hover</span> {
+  <span class="prop">background-color</span>: <span class="val">purple</span>;
+  <span class="prop">transform</span>: <span class="val">translateY(-3px)</span>;
+}</div>
+          <div class="tip-box">
+            <div class="tip-label">🔄 Transformaciones comunes</div>
+            <strong>scale(1.1)</strong> = agranda 10%<br>
+            <strong>translateY(-5px)</strong> = mueve 5px arriba<br>
+            <strong>rotate(45deg)</strong> = gira 45 grados<br>
+            <strong>skew(10deg)</strong> = inclina
+          </div>
+        `
+      },
+      examples: [
+        {
+          label: 'Botones con hover',
+          code: `<style>
+  .btn {
+    padding: 12px 24px;
+    background: #6a0dad;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+  }
+  .btn:hover {
+    background: #9b30ff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(106,13,173,0.4);
+  }
+</style>
+
+<button class="btn">🚀 Lanzar</button>
+<button class="btn">💜 Favorito</button>`,
+          preview: `<style>.btn{padding:12px 24px;background:#6a0dad;color:white;border:none;border-radius:8px;font-size:16px;cursor:pointer;transition:all 0.3s ease;margin:5px;}.btn:hover{background:#9b30ff;transform:translateY(-4px);box-shadow:0 8px 20px rgba(106,13,173,0.4);}</style><button class="btn">🚀 Lanzar</button><button class="btn">💜 Favorito</button>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué pseudo-clase aplica estilos al pasar el mouse?', options: [':click',':focus',':hover',':active'], correct: 2, feedback: '¡Correcto! :hover aplica estilos cuando el cursor está sobre el elemento.' },
+        { question: '¿Qué hace transition: all 0.3s ease?', options: ['Detiene todas las animaciones','Hace todos los cambios de estilo suaves en 0.3 segundos','Repite la animación 3 veces','Aplica efectos solo al hover'], correct: 1, feedback: '¡Muy bien! transition hace los cambios de estilo graduales. 0.3s es la duración, ease es la curva.' },
+        { question: '¿Qué hace transform: scale(1.2)?', options: ['Rota el elemento 1.2 grados','Mueve el elemento 1.2 píxeles','Agranda el elemento un 20%','Aplana el elemento 20%'], correct: 2, feedback: '¡Perfecto! scale(1.2) agranda el elemento a un 120% de su tamaño original.' }
+      ],
+      challenge: {
+        title: '¡Tarjetas animadas!',
+        instructions: 'Crea 3 tarjetas con clase "card". Al hacer hover, las tarjetas deben elevarse (translateY), cambiar de color de fondo, y tener transition suave.',
+        hints: ['transition: all 0.3s ease en el estado normal','transform: translateY(-8px) en el hover','box-shadow crea sombra para efecto de elevación'],
+        starterCode: `<style>
+  .card {
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 10px;
+    cursor: pointer;
+    transition: /* suaviza todo */;
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+  }
+  .card:hover {
+    background: /* color al hover */;
+    transform: /* elevar */;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+</style>
+
+<div class="card">🎮 Juegos</div>
+<div class="card">🎨 Arte</div>
+<div class="card">🎵 Música</div>`,
+        checkFn: (code) => code.includes(':hover') && code.includes('transition') && code.includes('transform')
+      }
+    }
+  ],
+  js: [
+    {
+      id: 'js-1',
+      title: '¿Qué es JavaScript?',
+      subtitle: 'El lenguaje que da vida a la web',
+      xp: 50,
+      intro: {
+        content: `
+          <h3>⚡ ¿Qué es JavaScript?</h3>
+          <p>JavaScript (JS) es el lenguaje de programación de la web. Si HTML es el esqueleto y CSS es la ropa, <strong>JavaScript es el cerebro</strong> que hace todo interactivo.</p>
+          <p>Con JavaScript puedes:</p>
+          <ul style="margin:10px 0 10px 20px;color:#d0d0f0">
+            <li style="margin:4px 0">Responder a clics de botones</li>
+            <li style="margin:4px 0">Mostrar/ocultar elementos</li>
+            <li style="margin:4px 0">Validar formularios</li>
+            <li style="margin:4px 0">Crear animaciones</li>
+            <li style="margin:4px 0">¡Y mucho más!</li>
+          </ul>
+          <h3>📝 Tu primer JavaScript</h3>
+          <div class="code-highlight"><span class="tag">&lt;script&gt;</span>
+  <span class="comment">// Esto es un comentario</span>
+  <span class="keyword">alert</span>(<span class="string">"¡Hola Mundo!"</span>);
+<span class="tag">&lt;/script&gt;</span></div>
+          <h3>📺 console.log</h3>
+          <p>Para ver mensajes en la consola del navegador (sin molestar al usuario):</p>
+          <div class="code-highlight"><span class="keyword">console</span>.<span class="keyword">log</span>(<span class="string">"Hola desde la consola!"</span>);
+<span class="keyword">console</span>.<span class="keyword">log</span>(<span class="number">42</span>);
+<span class="keyword">console</span>.<span class="keyword">log</span>(<span class="string">"2 + 2 ="</span>, <span class="number">2</span> + <span class="number">2</span>);</div>
+          <div class="tip-box">
+            <div class="tip-label">💡 ¿Dónde va el script?</div>
+            Coloca <code>&lt;script&gt;</code> al final del <code>&lt;body&gt;</code> o con el atributo <code>defer</code>. Así el HTML carga primero y el JS funciona correctamente.
+          </div>
+        `
+      },
+      examples: [
+        {
+          label: 'JavaScript básico',
+          code: `<!DOCTYPE html>
+<html>
+<body>
+  <h1>Mi primera JS</h1>
+  <button onclick="saludar()">
+    👋 Saludar
+  </button>
+  <p id="mensaje"></p>
+
+  <script>
+    function saludar() {
+      document.getElementById("mensaje")
+        .textContent = "¡Hola! Bienvenido 🎉";
+    }
+  <\/script>
+</body>
+</html>`,
+          preview: `<h1>Mi primera JS</h1><button onclick="document.getElementById('m').textContent='¡Hola! Bienvenido 🎉'">👋 Saludar</button><p id="m"></p>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué hace alert() en JavaScript?', options: ['Muestra un mensaje en la consola','Muestra un cuadro de diálogo emergente','Cierra la página','Recarga la página'], correct: 1, feedback: '¡Correcto! alert() muestra un popup de alerta que el usuario debe cerrar.' },
+        { question: '¿Qué hace console.log()?', options: ['Muestra un popup','Imprime en la consola del navegador (F12)','Escribe en la página','Envía un email'], correct: 1, feedback: '¡Muy bien! console.log imprime mensajes en la consola de desarrollador (F12 en el navegador).' },
+        { question: '¿Dónde es mejor colocar la etiqueta <script>?', options: ['En el <head>','Al inicio del <body>','Al final del <body>','Fuera del HTML'], correct: 2, feedback: '¡Perfecto! Al final del body garantiza que el HTML ya esté cargado cuando el JS se ejecute.' }
+      ],
+      challenge: {
+        title: '¡Tu primer botón interactivo!',
+        instructions: 'Crea una página con un botón que al hacer clic muestre un mensaje personalizado en un párrafo con id="resultado".',
+        hints: ['Usa onclick="nombreFuncion()" en el botón','document.getElementById("resultado").textContent = "mensaje"','La función va dentro de <script>'],
+        starterCode: `<!DOCTYPE html>
+<html>
+<body>
+  <h1>¡Interactivo!</h1>
+  <button onclick="mostrarMensaje()">
+    🎉 Haz clic aquí
+  </button>
+  <p id="resultado"></p>
+
+  <script>
+    function mostrarMensaje() {
+      // Escribe aquí el código para mostrar un mensaje
+      
+    }
+  <\/script>
+</body>
+</html>`,
+        checkFn: (code) => code.includes('function') && code.includes('getElementById') && code.includes('onclick')
+      }
+    },
+    {
+      id: 'js-2',
+      title: 'Variables',
+      subtitle: 'Guarda información en tu programa',
+      xp: 60,
+      intro: {
+        content: `
+          <h3>📦 ¿Qué es una variable?</h3>
+          <p>Una variable es como una <strong>caja etiquetada</strong> donde guardas información. Tiene un nombre y un valor.</p>
+          <div class="code-highlight"><span class="comment">// Declarar variables en JavaScript</span>
+<span class="keyword">let</span> nombre = <span class="string">"Ana"</span>;
+<span class="keyword">let</span> edad = <span class="number">10</span>;
+<span class="keyword">let</span> esFeliz = <span class="keyword">true</span>;
+
+<span class="comment">// Usar las variables</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(nombre);  <span class="comment">// Ana</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(edad);   <span class="comment">// 10</span></div>
+          <h3>🏷️ let, const y var</h3>
+          <div class="code-highlight"><span class="keyword">let</span> puntos = <span class="number">0</span>;    <span class="comment">// Puede cambiar</span>
+puntos = <span class="number">100</span>;         <span class="comment">// ✅ OK</span>
+
+<span class="keyword">const</span> PI = <span class="number">3.14159</span>; <span class="comment">// NO puede cambiar</span>
+<span class="comment">// PI = 5;           // ❌ Error!</span></div>
+          <div class="tip-box">
+            <div class="tip-label">📖 Tipos de datos</div>
+            <strong>String (texto):</strong> <code>"Hola"</code> o <code>'mundo'</code><br>
+            <strong>Number (número):</strong> <code>42</code> o <code>3.14</code><br>
+            <strong>Boolean (verdadero/falso):</strong> <code>true</code> o <code>false</code><br>
+            <strong>Array (lista):</strong> <code>[1, 2, 3]</code><br>
+            <strong>Object (objeto):</strong> <code>{nombre: "Ana", edad: 10}</code>
+          </div>
+        `
+      },
+      examples: [
+        {
+          label: 'Variables en acción',
+          code: `<!DOCTYPE html>
+<html><body>
+  <h1 id="saludo"></h1>
+  <p id="info"></p>
+  <script>
+    let nombre = "Ana";
+    let edad = 10;
+    let materia = "Programación";
+    
+    document.getElementById("saludo")
+      .textContent = "¡Hola, " + nombre + "!";
+    
+    document.getElementById("info")
+      .textContent = "Tienes " + edad + 
+      " años y estudias " + materia;
+  <\/script>
+</body></html>`,
+          preview: `<h1>¡Hola, Ana!</h1><p>Tienes 10 años y estudias Programación</p>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué palabra se usa para declarar una variable que puede cambiar?', options: ['var','const','let','def'], correct: 2, feedback: '¡Correcto! let declara variables que pueden cambiar su valor.' },
+        { question: '¿Qué tipo de dato es "Hola Mundo"?', options: ['Number','Boolean','String','Array'], correct: 2, feedback: '¡Muy bien! El texto entre comillas es de tipo String.' },
+        { question: '¿Qué valor puede tener un Boolean?', options: ['1 o 0','Si o No','true o false','on o off'], correct: 2, feedback: '¡Perfecto! Boolean solo puede ser true (verdadero) o false (falso).' }
+      ],
+      challenge: {
+        title: '¡Presentación automática!',
+        instructions: 'Crea variables para tu nombre, edad y hobby favorito. Luego muéstralas en la página concatenando los valores en un mensaje.',
+        hints: ['let nombre = "tu nombre"','Usa + para unir textos: "Hola " + nombre','getElementById para mostrar en la página'],
+        starterCode: `<!DOCTYPE html>
+<html><body>
+  <h2 id="titulo"></h2>
+  <p id="descripcion"></p>
+
+  <script>
+    // Crea tus variables aquí
+    let nombre = "";
+    let edad = 0;
+    let hobby = "";
+    
+    // Muestra la información en la página
+    document.getElementById("titulo").textContent = "";
+    document.getElementById("descripcion").textContent = "";
+  <\/script>
+</body></html>`,
+        checkFn: (code) => code.includes('let nombre') && code.includes('let edad') && code.includes('getElementById') && code.includes('textContent')
+      }
+    },
+    {
+      id: 'js-3',
+      title: 'Condicionales if/else',
+      subtitle: 'Toma decisiones en tu código',
+      xp: 70,
+      intro: {
+        content: `
+          <h3>🤔 ¿Qué son los condicionales?</h3>
+          <p>Los condicionales permiten que tu programa <strong>tome decisiones</strong> según ciertas condiciones. ¡Es como hacer preguntas!</p>
+          <div class="code-highlight"><span class="keyword">if</span> (condición) {
+  <span class="comment">// Se ejecuta SI la condición es verdadera</span>
+} <span class="keyword">else if</span> (otra condición) {
+  <span class="comment">// Se ejecuta si la segunda condición es verdadera</span>
+} <span class="keyword">else</span> {
+  <span class="comment">// Se ejecuta si ninguna condición fue verdadera</span>
+}</div>
+          <h3>⚖️ Operadores de comparación</h3>
+          <div class="code-highlight"><span class="number">5</span> === <span class="number">5</span>   <span class="comment">// igual estricto → true</span>
+<span class="number">5</span> !== <span class="number">3</span>   <span class="comment">// diferente → true</span>
+<span class="number">10</span> > <span class="number">5</span>    <span class="comment">// mayor que → true</span>
+<span class="number">3</span> < <span class="number">7</span>     <span class="comment">// menor que → true</span>
+<span class="number">5</span> >= <span class="number">5</span>   <span class="comment">// mayor o igual → true</span>
+<span class="number">4</span> <= <span class="number">3</span>   <span class="comment">// menor o igual → false</span></div>
+          <div class="tip-box">
+            <div class="tip-label">🔗 Operadores lógicos</div>
+            <strong>&amp;&amp; (AND):</strong> ambas condiciones deben ser true<br>
+            <strong>|| (OR):</strong> al menos una debe ser true<br>
+            <strong>! (NOT):</strong> invierte el valor
+          </div>
+        `
+      },
+      examples: [
+        {
+          label: 'Calculadora de notas',
+          code: `<!DOCTYPE html>
+<html><body>
+  <h2>📊 Calificador</h2>
+  <input type="number" id="nota" 
+    placeholder="Tu nota (0-10)" min="0" max="10">
+  <button onclick="calificar()">✅ Calificar</button>
+  <p id="resultado"></p>
+  <script>
+    function calificar() {
+      let nota = Number(document.getElementById("nota").value);
+      let mensaje;
+      if (nota >= 9) {
+        mensaje = "🏆 ¡Excelente!";
+      } else if (nota >= 7) {
+        mensaje = "😊 ¡Bien hecho!";
+      } else if (nota >= 5) {
+        mensaje = "📚 Aprobado";
+      } else {
+        mensaje = "😢 Debes estudiar más";
+      }
+      document.getElementById("resultado").textContent = mensaje;
+    }
+  <\/script>
+</body></html>`,
+          preview: `<h2>📊 Calificador</h2><input type="number" id="nota2" placeholder="Tu nota (0-10)" min="0" max="10"><button onclick="var n=Number(document.getElementById('nota2').value);var m=n>=9?'🏆 ¡Excelente!':n>=7?'😊 ¡Bien!':n>=5?'📚 Aprobado':'😢 Estudia más';document.getElementById('res2').textContent=m">✅ Calificar</button><p id="res2"></p>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué operador compara si dos valores son exactamente iguales?', options: ['==','=','===','!='], correct: 2, feedback: '¡Correcto! === es el operador de igualdad estricta en JavaScript.' },
+        { question: '¿Qué pasa si la condición del if es false y hay un else?', options: ['No se ejecuta nada','Se ejecuta el if','Se ejecuta el else','Da un error'], correct: 2, feedback: '¡Muy bien! Si el if es false, se ejecuta el bloque else.' },
+        { question: '¿Qué operador lógico requiere que AMBAS condiciones sean true?', options: ['||','!','&&','?'], correct: 2, feedback: '¡Perfecto! && (AND) requiere que ambas condiciones sean verdaderas.' }
+      ],
+      challenge: {
+        title: '¡Adivina la edad!',
+        instructions: 'Crea un input de número y un botón. Cuando el usuario ingrese su edad, muestra: "Eres menor de edad" si tiene menos de 18, "Eres mayor de edad" si tiene 18+, y "Ingresa una edad válida" si es menor de 0.',
+        hints: ['Number() convierte el input a número','if (edad < 0)','else if (edad < 18)'],
+        starterCode: `<!DOCTYPE html>
+<html><body>
+  <h2>🔢 ¿Cuántos años tienes?</h2>
+  <input type="number" id="edad" placeholder="Tu edad">
+  <button onclick="verificarEdad()">Verificar</button>
+  <p id="resultado"></p>
+
+  <script>
+    function verificarEdad() {
+      let edad = Number(document.getElementById("edad").value);
+      
+      if (/* edad inválida */) {
+        // mensaje de error
+      } else if (/* menor de edad */) {
+        // mensaje menor
+      } else {
+        // mensaje mayor
+      }
+    }
+  <\/script>
+</body></html>`,
+        checkFn: (code) => code.includes('if') && code.includes('else') && code.includes('getElementById') && code.includes('textContent')
+      }
+    },
+    {
+      id: 'js-4',
+      title: 'Bucles (Loops)',
+      subtitle: 'Repite acciones automáticamente',
+      xp: 80,
+      intro: {
+        content: `
+          <h3>🔄 ¿Para qué sirven los bucles?</h3>
+          <p>Los bucles permiten <strong>repetir código</strong> varias veces sin escribirlo una y otra vez. ¡Imagina tener que escribir 100 veces lo mismo!</p>
+          <h3>🔁 El bucle for</h3>
+          <div class="code-highlight"><span class="comment">// for (inicio; condición; incremento)</span>
+<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < <span class="number">5</span>; i++) {
+  <span class="keyword">console</span>.<span class="keyword">log</span>(<span class="string">"Vuelta número: "</span> + i);
+}
+<span class="comment">// Imprime: Vuelta 0, 1, 2, 3, 4</span></div>
+          <h3>🔂 El bucle while</h3>
+          <div class="code-highlight"><span class="keyword">let</span> contador = <span class="number">0</span>;
+<span class="keyword">while</span> (contador < <span class="number">3</span>) {
+  <span class="keyword">console</span>.<span class="keyword">log</span>(<span class="string">"Hola! vez: "</span> + contador);
+  contador++; <span class="comment">// ¡Importante! Si no, bucle infinito</span>
+}</div>
+          <div class="tip-box">
+            <div class="tip-label">⚠️ ¡Cuidado con los bucles infinitos!</div>
+            Siempre asegúrate de que la condición del bucle eventualmente se vuelva <strong>false</strong>. Si no, el programa se congela. El <code>i++</code> o <code>contador++</code> es fundamental.
+          </div>
+          <h3>📋 Recorrer arrays</h3>
+          <div class="code-highlight"><span class="keyword">let</span> frutas = [<span class="string">"manzana"</span>, <span class="string">"pera"</span>, <span class="string">"uva"</span>];
+
+<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < frutas.<span class="prop">length</span>; i++) {
+  <span class="keyword">console</span>.<span class="keyword">log</span>(frutas[i]);
+}</div>
+        `
+      },
+      examples: [
+        {
+          label: 'Tabla de multiplicar',
+          code: `<!DOCTYPE html>
+<html><body>
+  <h2>Tabla de multiplicar</h2>
+  <input type="number" id="num" 
+    placeholder="Número" min="1" max="10">
+  <button onclick="generarTabla()">
+    📊 Generar
+  </button>
+  <div id="tabla"></div>
+  <script>
+    function generarTabla() {
+      let n = Number(document.getElementById("num").value);
+      let html = "<h3>Tabla del " + n + "</h3>";
+      for (let i = 1; i <= 10; i++) {
+        html += "<p>" + n + " x " + i + " = " + (n*i) + "</p>";
+      }
+      document.getElementById("tabla").innerHTML = html;
+    }
+  <\/script>
+</body></html>`,
+          preview: `<h2>Tabla de multiplicar</h2><input type="number" id="nnn" placeholder="Número" min="1" max="10"><button onclick="var n=Number(document.getElementById('nnn').value);var h='<h3>Tabla del '+n+'</h3>';for(var i=1;i<=10;i++){h+='<p>'+n+' x '+i+' = '+(n*i)+'</p>'}document.getElementById('ttt').innerHTML=h">📊 Generar</button><div id="ttt"></div>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué hace i++ en un bucle for?', options: ['Reinicia i a 0','Reduce i en 1','Aumenta i en 1','Multiplica i por 2'], correct: 2, feedback: '¡Correcto! i++ incrementa el valor de i en 1 en cada vuelta del bucle.' },
+        { question: '¿Cuántas veces se ejecuta: for(let i=0; i<5; i++)?', options: ['4 veces','5 veces','6 veces','Infinitas'], correct: 1, feedback: '¡Muy bien! Se ejecuta cuando i=0,1,2,3,4 → 5 veces (0 hasta 4, no llega a 5).' },
+        { question: '¿Qué propiedad de un array indica cuántos elementos tiene?', options: ['size','count','length','total'], correct: 2, feedback: '¡Perfecto! array.length devuelve el número de elementos del array.' }
+      ],
+      challenge: {
+        title: '¡Lista de tareas automática!',
+        instructions: 'Crea un array con 5 tareas escolares y usa un bucle for para mostrarlas como una lista en la página usando innerHTML.',
+        hints: ['let tareas = ["Tarea 1", "Tarea 2", ...]','Usa innerHTML para agregar HTML','Concatena <li>tarea</li> en cada vuelta'],
+        starterCode: `<!DOCTYPE html>
+<html><body>
+  <h2>📚 Mis Tareas</h2>
+  <ul id="lista"></ul>
+
+  <script>
+    let tareas = [
+      "Hacer tarea de matemáticas",
+      "Leer 10 páginas",
+      // Agrega más tareas...
+    ];
+    
+    let html = "";
+    for (let i = 0; i < tareas.length; i++) {
+      // Agrega cada tarea como <li>
+      
+    }
+    document.getElementById("lista").innerHTML = html;
+  <\/script>
+</body></html>`,
+        checkFn: (code) => code.includes('for') && code.includes('length') && code.includes('innerHTML') && code.includes('<li>')
+      }
+    },
+    {
+      id: 'js-5',
+      title: 'Funciones',
+      subtitle: 'Reutiliza código con funciones',
+      xp: 80,
+      intro: {
+        content: `
+          <h3>⚙️ ¿Qué es una función?</h3>
+          <p>Una función es un <strong>bloque de código reutilizable</strong> con un nombre. La defines una vez y la puedes usar cuantas veces quieras.</p>
+          <div class="code-highlight"><span class="comment">// Definir la función</span>
+<span class="keyword">function</span> <span class="prop">saludar</span>(<span class="attr">nombre</span>) {
+  <span class="keyword">return</span> <span class="string">"¡Hola, "</span> + nombre + <span class="string">"!"</span>;
+}
+
+<span class="comment">// Usar (llamar) la función</span>
+<span class="keyword">let</span> mensaje = saludar(<span class="string">"Ana"</span>);
+<span class="keyword">console</span>.<span class="keyword">log</span>(mensaje); <span class="comment">// ¡Hola, Ana!</span>
+
+<span class="comment">// Llamar con diferentes valores</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(saludar(<span class="string">"Carlos"</span>)); <span class="comment">// ¡Hola, Carlos!</span></div>
+          <div class="tip-box">
+            <div class="tip-label">📖 Partes de una función</div>
+            <strong>function:</strong> palabra clave para declarar<br>
+            <strong>nombre:</strong> cómo la llamamos<br>
+            <strong>parámetros:</strong> valores que recibe (opcionales)<br>
+            <strong>return:</strong> valor que devuelve (opcional)
+          </div>
+          <h3>🔥 Arrow Functions (funciones flecha)</h3>
+          <div class="code-highlight"><span class="comment">// Forma corta de escribir funciones</span>
+<span class="keyword">const</span> sumar = (<span class="attr">a</span>, <span class="attr">b</span>) => a + b;
+<span class="keyword">console</span>.<span class="keyword">log</span>(sumar(<span class="number">5</span>, <span class="number">3</span>)); <span class="comment">// 8</span></div>
+        `
+      },
+      examples: [
+        {
+          label: 'Calculadora con funciones',
+          code: `<!DOCTYPE html>
+<html><body>
+  <h2>🧮 Calculadora</h2>
+  <input type="number" id="a" placeholder="A" style="width:60px">
+  <input type="number" id="b" placeholder="B" style="width:60px">
+  <br><br>
+  <button onclick="operar('+')">➕</button>
+  <button onclick="operar('-')">➖</button>
+  <button onclick="operar('*')">✖️</button>
+  <p id="resultado">Resultado: </p>
+  <script>
+    function operar(operacion) {
+      let a = Number(document.getElementById("a").value);
+      let b = Number(document.getElementById("b").value);
+      let resultado;
+      if (operacion === '+') resultado = a + b;
+      else if (operacion === '-') resultado = a - b;
+      else resultado = a * b;
+      document.getElementById("resultado").textContent = "Resultado: " + resultado;
+    }
+  <\/script>
+</body></html>`,
+          preview: `<h2>🧮 Calculadora</h2><input type="number" id="aa" placeholder="A" style="width:60px"><input type="number" id="bb" placeholder="B" style="width:60px"><br><br><button onclick="var a=Number(document.getElementById('aa').value),b=Number(document.getElementById('bb').value);document.getElementById('rr').textContent='= '+(a+b)">➕</button><button onclick="var a=Number(document.getElementById('aa').value),b=Number(document.getElementById('bb').value);document.getElementById('rr').textContent='= '+(a-b)">➖</button><p id="rr">Resultado: </p>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué palabra se usa para que una función devuelva un valor?', options: ['send','output','return','give'], correct: 2, feedback: '¡Correcto! return devuelve un valor desde la función.' },
+        { question: '¿Cómo se llama una función llamada "calcular" con el parámetro 5?', options: ['calcular[5]','calcular{5}','calcular = 5','calcular(5)'], correct: 3, feedback: '¡Muy bien! Las funciones se llaman con paréntesis: calcular(5).' },
+        { question: '¿Cuál es una ventaja de usar funciones?', options: ['Hace el código más largo','Puedes reutilizar código sin repetirlo','Hace el programa más lento','Solo sirve para matemáticas'], correct: 1, feedback: '¡Perfecto! Las funciones permiten reutilizar código, hacerlo más organizado y fácil de mantener.' }
+      ],
+      challenge: {
+        title: '¡Calculadora de IMC!',
+        instructions: 'Crea una función calcularIMC(peso, altura) que retorne el IMC (peso / altura²). Muestra el resultado y un mensaje según el IMC.',
+        hints: ['IMC = peso / (altura * altura)','Si IMC < 18.5: Bajo peso','Si IMC < 25: Normal','Si IMC >= 25: Sobrepeso'],
+        starterCode: `<!DOCTYPE html>
+<html><body>
+  <h2>⚖️ Calculadora de IMC</h2>
+  <input type="number" id="peso" placeholder="Peso (kg)"><br><br>
+  <input type="number" id="altura" placeholder="Altura (m) ej: 1.60"><br><br>
+  <button onclick="mostrarIMC()">Calcular IMC</button>
+  <p id="resultado"></p>
+
+  <script>
+    function calcularIMC(peso, altura) {
+      return /* fórmula IMC */;
+    }
+    
+    function mostrarIMC() {
+      let peso = Number(document.getElementById("peso").value);
+      let altura = Number(document.getElementById("altura").value);
+      let imc = calcularIMC(peso, altura);
+      let mensaje = "Tu IMC es: " + imc.toFixed(1) + " - ";
+      
+      if (/* bajo peso */) {
+        mensaje += "Bajo peso";
+      } else if (/* normal */) {
+        mensaje += "Normal ✅";
+      } else {
+        mensaje += "Sobrepeso";
+      }
+      document.getElementById("resultado").textContent = mensaje;
+    }
+  <\/script>
+</body></html>`,
+        checkFn: (code) => code.includes('function calcularIMC') && code.includes('return') && code.includes('if') && code.includes('else')
+      }
+    },
+    {
+      id: 'js-6',
+      title: 'DOM: Manipular HTML',
+      subtitle: 'Cambia la página con JavaScript',
+      xp: 90,
+      intro: {
+        content: `
+          <h3>🌳 ¿Qué es el DOM?</h3>
+          <p>El DOM (Document Object Model) es la representación de tu página HTML como un árbol de objetos que JavaScript puede manipular.</p>
+          <h3>🔍 Seleccionar elementos</h3>
+          <div class="code-highlight"><span class="comment">// Por ID</span>
+<span class="keyword">let</span> titulo = <span class="keyword">document</span>.<span class="prop">getElementById</span>(<span class="string">"titulo"</span>);
+
+<span class="comment">// Por clase</span>
+<span class="keyword">let</span> items = <span class="keyword">document</span>.<span class="prop">getElementsByClassName</span>(<span class="string">"item"</span>);
+
+<span class="comment">// Por selector CSS (el más moderno y útil)</span>
+<span class="keyword">let</span> btn = <span class="keyword">document</span>.<span class="prop">querySelector</span>(<span class="string">"#btn"</span>);
+<span class="keyword">let</span> todos = <span class="keyword">document</span>.<span class="prop">querySelectorAll</span>(<span class="string">".card"</span>);</div>
+          <h3>✏️ Modificar elementos</h3>
+          <div class="code-highlight"><span class="keyword">let</span> el = <span class="keyword">document</span>.<span class="prop">getElementById</span>(<span class="string">"titulo"</span>);
+
+<span class="comment">// Cambiar texto</span>
+el.<span class="prop">textContent</span> = <span class="string">"Nuevo texto"</span>;
+
+<span class="comment">// Cambiar HTML interno</span>
+el.<span class="prop">innerHTML</span> = <span class="string">"&lt;strong&gt;Negrita&lt;/strong&gt;"</span>;
+
+<span class="comment">// Cambiar estilos CSS</span>
+el.<span class="prop">style</span>.<span class="prop">color</span> = <span class="string">"red"</span>;
+el.<span class="prop">style</span>.<span class="prop">fontSize</span> = <span class="string">"24px"</span>;
+
+<span class="comment">// Mostrar/ocultar</span>
+el.<span class="prop">style</span>.<span class="prop">display</span> = <span class="string">"none"</span>;    <span class="comment">// Ocultar</span>
+el.<span class="prop">style</span>.<span class="prop">display</span> = <span class="string">"block"</span>;   <span class="comment">// Mostrar</span>
+
+<span class="comment">// Agregar/quitar clases</span>
+el.<span class="prop">classList</span>.<span class="prop">add</span>(<span class="string">"activo"</span>);
+el.<span class="prop">classList</span>.<span class="prop">remove</span>(<span class="string">"activo"</span>);</div>
+        `
+      },
+      examples: [
+        {
+          label: 'App de cambio de tema',
+          code: `<!DOCTYPE html>
+<html><body id="page" style="padding:20px">
+  <h2 id="titulo">🌙 Modo Oscuro</h2>
+  <p id="desc">Haz clic para cambiar el tema</p>
+  <button id="btn" onclick="cambiarTema()">
+    🌓 Cambiar Tema
+  </button>
+  <script>
+    let modoOscuro = false;
+    function cambiarTema() {
+      let page = document.getElementById("page");
+      let titulo = document.getElementById("titulo");
+      if (!modoOscuro) {
+        page.style.backgroundColor = "#1a1a2e";
+        page.style.color = "white";
+        titulo.textContent = "☀️ Modo Claro";
+        modoOscuro = true;
+      } else {
+        page.style.backgroundColor = "white";
+        page.style.color = "black";
+        titulo.textContent = "🌙 Modo Oscuro";
+        modoOscuro = false;
+      }
+    }
+  <\/script>
+</body></html>`,
+          preview: `<div id="pp" style="padding:15px;transition:all 0.3s"><h2 id="tt">🌙 Modo Oscuro</h2><p>Haz clic para cambiar el tema</p><button onclick="var pp=document.getElementById('pp');var tt=document.getElementById('tt');if(pp.style.background!='#1a1a2e'){pp.style.background='#1a1a2e';pp.style.color='white';tt.textContent='☀️ Modo Claro'}else{pp.style.background='white';pp.style.color='black';tt.textContent='🌙 Modo Oscuro'}">🌓 Cambiar Tema</button></div>`
+        }
+      ],
+      quiz: [
+        { question: '¿Qué método selecciona un elemento por su ID?', options: ['querySelector','getElement','getElementById','selectById'], correct: 2, feedback: '¡Correcto! getElementById("id") selecciona el elemento con ese ID.' },
+        { question: '¿Qué propiedad cambia el texto visible de un elemento?', options: ['innerHTML','text','content','textContent'], correct: 3, feedback: '¡Muy bien! textContent cambia el texto (sin interpretar HTML). innerHTML sí interpreta HTML.' },
+        { question: '¿Cómo se oculta un elemento con JavaScript?', options: ['element.visible = false','element.hide()','element.style.display = "none"','element.opacity = 0'], correct: 2, feedback: '¡Perfecto! element.style.display = "none" oculta el elemento del DOM.' }
+      ],
+      challenge: {
+        title: '¡Lista de tareas interactiva!',
+        instructions: 'Crea una mini app donde el usuario puede escribir una tarea, hacer clic en "Agregar" y que aparezca en una lista. Bonus: que se pueda marcar como completada.',
+        hints: ['Usa document.createElement("li") para crear elementos','parentElement.appendChild(nuevoElemento)','Al hacer clic en la tarea, toggle la clase "completada"'],
+        starterCode: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .completada { text-decoration: line-through; color: gray; }
+  li { cursor: pointer; padding: 5px; margin: 3px 0; }
+  li:hover { background: #f0f0f0; }
+</style>
+</head>
+<body>
+  <h2>✅ Lista de Tareas</h2>
+  <input type="text" id="nueva-tarea" placeholder="Nueva tarea...">
+  <button onclick="agregarTarea()">➕ Agregar</button>
+  <ul id="lista-tareas"></ul>
+
+  <script>
+    function agregarTarea() {
+      let input = document.getElementById("nueva-tarea");
+      let texto = input.value;
+      
+      if (texto !== "") {
+        // Crea el elemento li
+        // Agrega el texto
+        // Agrega a la lista
+        // Limpia el input
+      }
+    }
+  <\/script>
+</body></html>`,
+        checkFn: (code) => code.includes('createElement') && code.includes('appendChild') && code.includes('agregarTarea') && code.includes('getElementById')
+      }
+    }
+  ]
+};
+
+// ==================== STATE ====================
+let state = {
+  currentLesson: null,
+  currentTab: 0,
+  quizAnswers: {},
+  quizCorrect: 0,
+  challengeDone: false,
+  progress: {}
+};
+
+function loadProgress() {
+  try {
+    const saved = localStorage.getItem('webkids_progress');
+    if (saved) state.progress = JSON.parse(saved);
+  } catch(e) { state.progress = {}; }
+}
+
+function saveProgress() {
+  try {
+    localStorage.setItem('webkids_progress', JSON.stringify(state.progress));
+  } catch(e) {}
+}
+
+function getLessonProgress(id) {
+  return state.progress[id] || { completed: false, stars: 0, points: 0 };
+}
+
+function getTotalPoints() {
+  return Object.values(state.progress).reduce((s, p) => s + (p.points || 0), 0);
+}
+
+function getTotalStars() {
+  return Object.values(state.progress).reduce((s, p) => s + (p.stars || 0), 0);
+}
+
+function getCompletedCount() {
+  return Object.values(state.progress).filter(p => p.completed).length;
+}
+
+function getTrackProgress(track) {
+  const lessons = curriculum[track];
+  const done = lessons.filter(l => getLessonProgress(l.id).completed).length;
+  return Math.round((done / lessons.length) * 100);
+}
+
+function getAllLessons() {
+  return [...curriculum.html, ...curriculum.css, ...curriculum.js];
+}
+
+// ==================== SIDEBAR BUILD ====================
+function buildSidebar() {
+  ['html', 'css', 'js'].forEach(track => {
+    const section = document.getElementById(track + '-section');
+    section.innerHTML = '';
+    curriculum[track].forEach((lesson, idx) => {
+      const prog = getLessonProgress(lesson.id);
+      const allLessons = getAllLessons();
+      const globalIdx = allLessons.findIndex(l => l.id === lesson.id);
+      const isLocked = globalIdx > 0 && !getLessonProgress(allLessons[globalIdx - 1].id).completed;
+      const div = document.createElement('div');
+      div.className = `lesson-item${prog.completed ? ' completed' : ''}${state.currentLesson?.id === lesson.id ? ' active' : ''}${isLocked ? ' locked' : ''}`;
+      const stars = prog.stars ? '⭐'.repeat(prog.stars) : '';
+      div.innerHTML = `
+        <span class="lesson-icon">${prog.completed ? '✅' : isLocked ? '🔒' : '📖'}</span>
+        <span>${idx + 1}. ${lesson.title}</span>
+        ${stars ? `<span class="lesson-stars">${stars}</span>` : ''}
+      `;
+      if (!isLocked) {
+        div.onclick = () => { openLesson(lesson); if(window.innerWidth <= 768) toggleSidebar(); };
+      }
+      section.appendChild(div);
+    });
+    // Update progress bar
+    document.getElementById(track + '-prog').style.width = getTrackProgress(track) + '%';
+  });
+}
+
+// ==================== HOME UPDATE ====================
+function updateHome() {
+  const pts = getTotalPoints();
+  const lessons = getCompletedCount();
+  const stars = getTotalStars();
+  const maxPts = getAllLessons().reduce((s, l) => s + l.xp, 0);
+  const maxLessons = getAllLessons().length;
+  const maxStars = maxLessons * 5;
+  
+  document.getElementById('total-points').textContent = pts;
+  document.getElementById('streak-count').textContent = Math.floor(lessons / 2);
+  document.getElementById('home-points').textContent = pts;
+  document.getElementById('home-lessons').textContent = lessons;
+  document.getElementById('home-stars').textContent = stars;
+  document.getElementById('home-points-bar').style.width = Math.min(100, pts / maxPts * 100) + '%';
+  document.getElementById('home-lessons-bar').style.width = Math.min(100, lessons / maxLessons * 100) + '%';
+  document.getElementById('home-stars-bar').style.width = Math.min(100, stars / maxStars * 100) + '%';
+  
+  ['html', 'css', 'js'].forEach(t => {
+    document.getElementById('tr-' + t).style.width = getTrackProgress(t) + '%';
+  });
+}
+
+// ==================== LESSON ====================
+function openLesson(lesson) {
+  state.currentLesson = lesson;
+  state.currentTab = 0;
+  state.quizAnswers = {};
+  state.quizCorrect = 0;
+  state.challengeDone = false;
+  
+  document.getElementById('home-screen').style.display = 'none';
+  const ls = document.getElementById('lesson-screen');
+  ls.style.display = 'block';
+  
+  const allLessons = getAllLessons();
+  const idx = allLessons.findIndex(l => l.id === lesson.id);
+  document.getElementById('lesson-num').textContent = idx + 1;
+  document.getElementById('lesson-title').textContent = lesson.title;
+  document.getElementById('lesson-subtitle').textContent = lesson.subtitle;
+  document.getElementById('lesson-xp').textContent = '+' + lesson.xp + ' pts';
+  
+  buildTabs(lesson);
+  showTab(0);
+  buildSidebar();
+  ls.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function buildTabs(lesson) {
+  const tabs = document.getElementById('lesson-tabs');
+  const tabDefs = [
+    { label: '📖 Lección', icon: '📖' },
+    { label: '💡 Ejemplos', icon: '💡' },
+    { label: '❓ Quiz', icon: '❓' },
+    { label: '⌨️ Práctica', icon: '⌨️' }
+  ];
+  
+  tabs.innerHTML = '';
+  tabDefs.forEach((t, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'lesson-tab' + (i === 0 ? ' active' : '');
+    btn.textContent = t.label;
+    btn.onclick = () => showTab(i);
+    tabs.appendChild(btn);
+  });
+}
+
+function showTab(idx) {
+  state.currentTab = idx;
+  const tabs = document.querySelectorAll('.lesson-tab');
+  tabs.forEach((t, i) => { t.className = 'lesson-tab' + (i === idx ? ' active' : ''); });
+  
+  const content = document.getElementById('tab-content');
+  const lesson = state.currentLesson;
+  
+  if (idx === 0) content.innerHTML = renderIntro(lesson);
+  else if (idx === 1) content.innerHTML = renderExamples(lesson);
+  else if (idx === 2) { content.innerHTML = renderQuiz(lesson); }
+  else if (idx === 3) content.innerHTML = renderChallenge(lesson);
+}
+
+function renderIntro(lesson) {
+  return `<div class="tab-pane active"><div class="intro-content">${lesson.intro.content}</div></div>`;
+}
+
+function renderExamples(lesson) {
+  let html = '<div class="tab-pane active">';
+  lesson.examples.forEach((ex, i) => {
+    html += `
+      <div class="example-section">
+        <div class="example-card">
+          <div class="example-card-header">
+            <div class="dots"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+            <span class="example-label">${ex.label}</span>
+          </div>
+          <div class="example-split">
+            <div class="code-panel">${escapeForDisplay(ex.code)}</div>
+            <div class="preview-panel">${ex.preview}</div>
+          </div>
+        </div>
+      </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderQuiz(lesson) {
+  let html = '<div class="tab-pane active"><div class="quiz-container">';
+  lesson.quiz.forEach((q, qi) => {
+    const answered = state.quizAnswers[qi] !== undefined;
+    const isCorrect = state.quizAnswers[qi] === q.correct;
+    html += `<div class="question-card" id="q-${qi}">
+      <div class="question-number">Pregunta ${qi + 1} de ${lesson.quiz.length}</div>
+      <div class="question-text">${q.question}</div>
+      <div class="options-grid">`;
+    q.options.forEach((opt, oi) => {
+      let cls = 'option-btn';
+      if (answered) {
+        if (oi === q.correct) cls += ' correct';
+        else if (oi === state.quizAnswers[qi] && !isCorrect) cls += ' wrong';
+      }
+      html += `<button class="${cls}" ${answered ? 'disabled' : ''} onclick="answerQuiz(${qi}, ${oi})">
+        <span class="option-letter">${String.fromCharCode(65 + oi)}</span>
+        ${opt}
+      </button>`;
+    });
+    html += `</div>
+      <div class="feedback-msg ${answered ? 'show ' + (isCorrect ? 'correct' : 'wrong') : ''}" id="fb-${qi}">
+        ${answered ? (isCorrect ? '✅ ' : '❌ ') + q.feedback : ''}
+      </div>
+    </div>`;
+  });
+  
+  if (Object.keys(state.quizAnswers).length === lesson.quiz.length) {
+    const pct = Math.round((state.quizCorrect / lesson.quiz.length) * 100);
+    html += `<div class="complete-card">
+      <div class="stars-display">${getStarsDisplay(pct)}</div>
+      <div class="complete-title">¡Quiz terminado!</div>
+      <p style="color:var(--text2);margin:8px 0">${state.quizCorrect} de ${lesson.quiz.length} correctas</p>
+      <button class="start-btn" onclick="showTab(3)" style="margin-top:12px">⌨️ Ir a la Práctica →</button>
+    </div>`;
+  }
+  
+  html += '</div></div>';
+  return html;
+}
+
+function answerQuiz(qi, oi) {
+  if (state.quizAnswers[qi] !== undefined) return;
+  state.quizAnswers[qi] = oi;
+  const lesson = state.currentLesson;
+  if (oi === lesson.quiz[qi].correct) state.quizCorrect++;
+  showTab(2);
+}
+
+function renderChallenge(lesson) {
+  const ch = lesson.challenge;
+  const prog = getLessonProgress(lesson.id);
+  let hintsHtml = ch.hints.map(h => `<li>${h}</li>`).join('');
+  
+  return `<div class="tab-pane active">
+    <div class="challenge-card">
+      <div class="challenge-instructions">
+        <h4>🎯 ${ch.title}</h4>
+        <p>${ch.instructions}</p>
+        <ul style="margin-top:8px">${hintsHtml}</ul>
+      </div>
+      <div class="editor-area">
+        <div class="editor-toolbar">
+          <span class="editor-label">⌨️ Tu código</span>
+          <div style="display:flex;gap:8px">
+            <button class="run-btn" onclick="runCode()">▶ Ejecutar</button>
+            <button class="check-btn" onclick="checkCode()">✅ Verificar</button>
+          </div>
+        </div>
+        <div class="editor-split">
+          <textarea class="code-editor" id="code-editor" spellcheck="false" placeholder="Escribe tu código aquí...">${ch.starterCode}</textarea>
+          <iframe class="preview-frame" id="preview-frame"></iframe>
+        </div>
+      </div>
+      <div class="challenge-result" id="challenge-result"></div>
+    </div>
+    ${prog.completed ? `<div class="complete-card" style="margin-top:16px">
+      <div class="stars-display">${getStarsDisplay(prog.stars * 20)}</div>
+      <div class="complete-title">¡Lección completada!</div>
+      <div class="complete-points">${prog.points} <small>puntos ganados</small></div>
+    </div>` : ''}
+  </div>`;
+}
+
+function runCode() {
+  const code = document.getElementById('code-editor').value;
+  const frame = document.getElementById('preview-frame');
+  frame.srcdoc = code;
+}
+
+function checkCode() {
+  const code = document.getElementById('code-editor').value;
+  const lesson = state.currentLesson;
+  const result = document.getElementById('challenge-result');
+  
+  // Run preview first
+  runCode();
+  
+  if (lesson.challenge.checkFn(code)) {
+    result.className = 'challenge-result show pass';
+    result.innerHTML = '🎉 ¡Excelente trabajo! ¡Tu código es correcto!';
+    
+    if (!getLessonProgress(lesson.id).completed) {
+      completeLesson(lesson);
+    }
+  } else {
+    result.className = 'challenge-result show fail';
+    result.innerHTML = '🔧 Revisa tu código. Asegúrate de usar todos los elementos requeridos.';
+  }
+}
+
+function completeLesson(lesson) {
+  // Calculate stars based on quiz performance
+  const quizPct = Object.keys(state.quizAnswers).length > 0
+    ? state.quizCorrect / lesson.quiz.length
+    : 0.5;
+  const stars = Math.max(3, Math.round(quizPct * 5));
+  const points = lesson.xp + (stars * 10);
+  
+  state.progress[lesson.id] = { completed: true, stars, points };
+  saveProgress();
+  updateHome();
+  buildSidebar();
+  
+  launchConfetti();
+  
+  // Re-render to show completion
+  setTimeout(() => showTab(3), 300);
+}
+
+function getStarsDisplay(pct) {
+  const s = pct >= 90 ? 5 : pct >= 70 ? 4 : pct >= 50 ? 3 : pct >= 30 ? 2 : 1;
+  return '⭐'.repeat(s) + '☆'.repeat(5 - s);
+}
+
+function launchConfetti() {
+  const colors = ['#7c3aed','#06b6d4','#22c55e','#eab308','#ec4899','#f97316'];
+  for (let i = 0; i < 40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = Math.random() * 1.5 + 's';
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 4000);
+  }
+}
+
+function prevLesson() {
+  const all = getAllLessons();
+  const idx = all.findIndex(l => l.id === state.currentLesson.id);
+  if (idx > 0) openLesson(all[idx - 1]);
+  else goHome();
+}
+
+function nextLesson() {
+  const all = getAllLessons();
+  const idx = all.findIndex(l => l.id === state.currentLesson.id);
+  if (idx < all.length - 1) openLesson(all[idx + 1]);
+}
+
+// ==================== NAVIGATION ====================
+function goHome() {
+  document.getElementById('home-screen').style.display = 'block';
+  document.getElementById('lesson-screen').style.display = 'none';
+  state.currentLesson = null;
+  buildSidebar();
+  updateHome();
+}
+
+function startFirstLesson() {
+  const all = getAllLessons();
+  // Find first incomplete
+  const next = all.find(l => !getLessonProgress(l.id).completed);
+  openLesson(next || all[0]);
+}
+
+function goToTrack(track) {
+  const lessons = curriculum[track];
+  const next = lessons.find(l => !getLessonProgress(l.id).completed);
+  openLesson(next || lessons[0]);
+}
+
+function toggleSection(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === 'none' ? 'block' : el.style.display === '' ? 'none' : 'block';
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebar-overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+}
+
+function escapeForDisplay(code) {
+  return code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ==================== INIT ====================
+loadProgress();
+buildSidebar();
+updateHome();
+</script>
+</body>
+</html>
