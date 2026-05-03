@@ -1030,7 +1030,7 @@ body::before {
       <div class="tutorial-step-num">1</div>
       <div class="tutorial-step-text">
         <h4>📝 Escribe o edita el código</h4>
-        <p>En el panel izquierdo hay código inicial. Lee las instrucciones y modifica el código según lo que se pide. ¡No borres lo que ya está bien!</p>
+        <p>En el primer panel hay código inicial. Lee las instrucciones y modifica el código según lo que se pide. ¡No borres lo que ya está bien!</p>
       </div>
     </div>
 
@@ -1038,7 +1038,7 @@ body::before {
       <div class="tutorial-step-num">2</div>
       <div class="tutorial-step-text">
         <h4>▶ Ejecuta para ver el resultado</h4>
-        <p>Haz clic en el botón verde <strong>▶ Ejecutar</strong> para ver cómo se ve tu código en el panel derecho. Puedes ejecutar cuantas veces quieras.</p>
+        <p>Haz clic en el botón verde <strong>▶ Ejecutar</strong> para ver cómo se ve tu código en el segundo panel. Puedes ejecutar cuantas veces quieras.</p>
       </div>
     </div>
 
@@ -1052,6 +1052,7 @@ body::before {
 
     <div style="background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.3);border-radius:10px;padding:10px 14px;margin-top:4px">
       <p style="font-size:12px;color:var(--yellow);font-weight:700">💡 Tip: Lee los comentarios en el código (líneas que empiezan con &lt;!-- o //) ¡te dicen exactamente qué hacer!</p>
+      <p style="font-size:16px;color:var(--purple);font-weight:700;text-align: center;">Puedes borrar los comentarios o escribir justo debajo</p>
     </div>
 
     <button class="tutorial-btn" onclick="closeTutorial()">🚀 ¡Entendido, vamos a practicar!</button>
@@ -1225,7 +1226,7 @@ body::before {
             </div>
             <h3>🏷️ ¿Qué son las etiquetas?</h3>
             <p>HTML usa <strong>etiquetas</strong> (tags) para decirle al navegador qué mostrar. Las etiquetas tienen este formato:</p>
-            <div class="code-highlight"><span class="tag">&lt;etiqueta&gt;</span> Contenido aquí <span class="tag">&lt;/etiqueta&gt;</span></div>
+            <div class="code-highlight"><span>Debes escribir dos etiquetas, una de apertura, una de cierre y lo que quieres mostrar en medio</span><br><br><span class="tag">&lt;etiqueta&gt;</span> Contenido aquí <span class="tag">&lt;/etiqueta&gt;</span></div>
             <p>La mayoría de etiquetas tienen una <strong>etiqueta de apertura</strong> <code class="tag-inline">&lt;etiqueta&gt;</code> y una <strong>etiqueta de cierre</strong> <code class="tag-inline">&lt;/etiqueta&gt;</code> con una barra al inicio.</p>
             <div class="tip-box">
                 <div class="tip-label">🎯 Regla importante</div>
@@ -1233,23 +1234,23 @@ body::before {
             </div>
             <h3>📄 La estructura básica</h3>
             <p>Todo documento HTML tiene una estructura básica obligatoria:</p>
-            <div class="code-highlight"><span class="tag">&lt;!DOCTYPE html&gt;</span>
-    <span class="tag">&lt;html&gt;</span>
-    <span class="tag">&lt;head&gt;</span>
-        <span class="tag">&lt;title&gt;</span>Mi primera página<span class="tag">&lt;/title&gt;</span>
-    <span class="tag">&lt;/head&gt;</span>
-    <span class="tag">&lt;body&gt;</span>
-        <span class="comment">&lt;!-- Aquí va el contenido visible --&gt;</span>
-    <span class="tag">&lt;/body&gt;</span>
+            <div class="code-highlight"><span class="tag">&lt;!DOCTYPE html&gt;</span> <br>
+    <span class="tag">&lt;html&gt;</span><br>
+    <span class="tag">&lt;head&gt;</span><br>
+        <span class="tag">&lt;title&gt;</span>Mi primera página<span class="tag">&lt;/title&gt;</span><br>
+    <span class="tag">&lt;/head&gt;</span><br>
+    <span class="tag">&lt;body&gt;</span><br>
+        <span class="comment">&lt;!-- Aquí va el contenido visible --&gt;</span><br>
+    <span class="tag">&lt;/body&gt;</span><br>
     <span class="tag">&lt;/html&gt;</span></div>
             `
         },
         examples: [
             {
             label: 'Mi primera página HTML',
-            description: 'Mira cómo el código HTML de la izquierda se convierte en una página real a la derecha. El navegador lee el código y muestra el resultado.',
+            description: 'Mira cómo el código HTML se convierte en una página real. El navegador lee el código y muestra el resultado escrito dentro del body.',
             code: `<!DOCTYPE html>\n<html>\n  <head>\n    <title>Mi página</title>\n  </head>\n  <body>\n    <h1>¡Hola Mundo!</h1>\n    <p>Esta es mi primera\n    página web. 🎉</p>\n  <\/body>\n<\/html>`,
-            preview: `<h1 style="font-family:sans-serif">¡Hola Mundo!</h1><p style="font-family:sans-serif">Esta es mi primera página web. 🎉</p>`
+            preview: `<h1 style="font-family:sans-serif;color: black;">¡Hola Mundo!</h1><p style="font-family:sans-serif;color: black;">Esta es mi primera página web. 🎉</p>`
             }
         ],
         quiz: [
@@ -1302,7 +1303,7 @@ body::before {
             label: 'Usando encabezados y párrafos',
             description: 'Observa cómo los diferentes niveles de encabezados (h1, h2) tienen distintos tamaños. Los párrafos tienen espacio automático entre ellos.',
             code: `<h1>Mi Blog</h1>\n<h2>Primera entrada</h2>\n<p>Hoy aprendí <strong>HTML</strong>.\n¡Es muy divertido!</p>\n<h2>Segunda entrada</h2>\n<p>Los encabezados son\n<em>muy útiles</em>.</p>`,
-            preview: `<div style="font-family:sans-serif"><h1>Mi Blog</h1><h2>Primera entrada</h2><p>Hoy aprendí <strong>HTML</strong>. ¡Es muy divertido!</p><h2>Segunda entrada</h2><p>Los encabezados son <em>muy útiles</em>.</p></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><h1>Mi Blog</h1><h2>Primera entrada</h2><p>Hoy aprendí <strong>HTML</strong>. ¡Es muy divertido!</p><h2>Segunda entrada</h2><p>Los encabezados son <em>muy útiles</em>.</p></div>`
             }
         ],
         quiz: [
@@ -1313,9 +1314,9 @@ body::before {
         challenge: {
             title: '¡Crea tu perfil!',
             instructions: 'Crea una mini página de perfil con tu nombre, una sección "Sobre mí" y un párrafo describiendo quién eres.',
-            hints: ['Usa &lt;h1&gt; para tu nombre','Usa &lt;h2&gt; para "Sobre mí"','Usa &lt;strong&gt; para el hobby'],
+            hints: ['Usa &lt;h1&gt; para tu nombre','Usa &lt;h2&gt; para "Sobre mí"','Usa &lt;strong&gt; dentro del párrafo para el hobby'],
             todos: ['Escribe tu nombre en el &lt;h1&gt;', 'Agrega un &lt;h2&gt; que diga "Sobre mí"', 'Escribe un párrafo &lt;p&gt; sobre ti con tu hobby en &lt;strong&gt;'],
-            starterCode: `<h1><!-- Tu nombre aquí --></h1>\n<h2>Sobre mí</h2>\n<p><!-- Descríbete aquí, con tu hobby en <strong> --></p>`,
+            starterCode: ``,
             checkFn: (code) => code.includes('<h1>') && code.includes('<h2>') && code.includes('<p>') && code.includes('<strong>')
         }
         },
@@ -1355,7 +1356,7 @@ body::before {
             label: 'Listas en acción',
             description: 'Una lista desordenada (&lt;ul&gt;) muestra puntos, mientras que la ordenada (&lt;ol&gt;) muestra números automáticamente.',
             code: `<h2>Mis frutas favoritas</h2>\n<ul>\n  <li>🍎 Manzana</li>\n  <li>🍊 Naranja</li>\n  <li>🍌 Banana</li>\n</ul>\n\n<h2>Cómo hacer HTML</h2>\n<ol>\n  <li>Abre un editor</li>\n  <li>Escribe el código</li>\n  <li>¡Guarda y listo!</li>\n</ol>`,
-            preview: `<div style="font-family:sans-serif"><h2>Mis frutas favoritas</h2><ul><li>🍎 Manzana</li><li>🍊 Naranja</li><li>🍌 Banana</li></ul><h2>Cómo hacer HTML</h2><ol><li>Abre un editor</li><li>Escribe el código</li><li>¡Guarda y listo!</li></ol></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><h2>Mis frutas favoritas</h2><ul><li>🍎 Manzana</li><li>🍊 Naranja</li><li>🍌 Banana</li></ul><h2>Cómo hacer HTML</h2><ol><li>Abre un editor</li><li>Escribe el código</li><li>¡Guarda y listo!</li></ol></div>`
             }
         ],
         quiz: [
@@ -1404,7 +1405,7 @@ body::before {
             label: 'Creando enlaces',
             description: 'Los enlaces aparecen subrayados y en azul por defecto. El texto dentro del &lt;a&gt; es lo que el usuario ve y puede hacer clic.',
             code: `<h2>Mis sitios favoritos</h2>\n<ul>\n  <li>\n    <a href="https://google.com">\n      🔍 Google\n    </a>\n  </li>\n  <li>\n    <a href="https://youtube.com">\n      🎥 YouTube\n    </a>\n  </li>\n</ul>\n<p>\n  <a href="mailto:hola@email.com">\n    📧 Escríbeme\n  </a>\n</p>`,
-            preview: `<div style="font-family:sans-serif"><h2>Mis sitios favoritos</h2><ul><li><a href="#">🔍 Google</a></li><li><a href="#">🎥 YouTube</a></li></ul><p><a href="#">📧 Escríbeme</a></p></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><h2>Mis sitios favoritos</h2><ul><li><a href="#">🔍 Google</a></li><li><a href="#">🎥 YouTube</a></li></ul><p><a href="#">📧 Escríbeme</a></p></div>`
             }
         ],
         quiz: [
@@ -1453,7 +1454,7 @@ body::before {
             label: 'Mostrando imágenes',
             description: 'La etiqueta &lt;img&gt; no tiene etiqueta de cierre. El src puede ser una URL de internet o la ruta a un archivo local.',
             code: `<h2>Galería de fotos</h2>\n\n<img src="https://picsum.photos/200/150?1"\n     alt="Foto 1"\n     width="200">\n\n<p>Una foto bonita 🌄</p>\n\n<img src="https://picsum.photos/200/150?2"\n     alt="Foto 2"\n     width="200">`,
-            preview: `<div style="font-family:sans-serif"><h2>Galería de fotos</h2><img src="https://picsum.photos/200/150?1" alt="Foto 1" width="200"><p>Una foto bonita 🌄</p><img src="https://picsum.photos/200/150?2" alt="Foto 2" width="200"></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><h2>Galería de fotos</h2><img src="https://picsum.photos/200/150?1" alt="Foto 1" width="200"><p>Una foto bonita 🌄</p><img src="https://picsum.photos/200/150?2" alt="Foto 2" width="200"></div>`
             }
         ],
         quiz: [
@@ -1501,7 +1502,7 @@ body::before {
             label: 'Divs para organizar tarjetas',
             description: 'Cada div actúa como una "tarjeta" o "caja". El estilo inline (style="...") permite darle colores y bordes directamente en HTML.',
             code: `<div style="border:2px solid blue; padding:10px; margin:5px">\n  <h3>🎮 Videojuegos</h3>\n  <p>Me <span style="color:red">encanta</span> jugar.</p>\n</div>\n\n<div style="border:2px solid green; padding:10px; margin:5px">\n  <h3>🎨 Arte</h3>\n  <p>También me <span style="color:orange">gusta</span> dibujar.</p>\n</div>`,
-            preview: `<div style="font-family:sans-serif"><div style="border:2px solid blue; padding:10px; margin:5px"><h3>🎮 Videojuegos</h3><p>Me <span style="color:red">encanta</span> jugar.</p></div><div style="border:2px solid green; padding:10px; margin:5px"><h3>🎨 Arte</h3><p>También me <span style="color:orange">gusta</span> dibujar.</p></div></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><div style="border:2px solid blue; padding:10px; margin:5px"><h3>🎮 Videojuegos</h3><p>Me <span style="color:red">encanta</span> jugar.</p></div><div style="border:2px solid green; padding:10px; margin:5px"><h3>🎨 Arte</h3><p>También me <span style="color:orange">gusta</span> dibujar.</p></div></div>`
             }
         ],
         quiz: [
@@ -1549,7 +1550,7 @@ body::before {
             label: 'Formulario de registro',
             description: 'Un formulario típico tiene campos (inputs) con etiquetas (labels) que describen qué información pedir, y un botón para enviar.',
             code: `<form>\n  <label>Nombre:</label><br>\n  <input type="text" \n    placeholder="Tu nombre"><br><br>\n  \n  <label>Email:</label><br>\n  <input type="email" \n    placeholder="tu@email.com"><br><br>\n  \n  <label>Edad:</label><br>\n  <input type="number" \n    min="5" max="18"><br><br>\n  \n  <button type="submit">\n    ✅ Registrarme\n  </button>\n</form>`,
-            preview: `<div style="font-family:sans-serif"><form onsubmit="return false"><label>Nombre:</label><br><input type="text" placeholder="Tu nombre"><br><br><label>Email:</label><br><input type="email" placeholder="tu@email.com"><br><br><label>Edad:</label><br><input type="number" min="5" max="18"><br><br><button type="submit">✅ Registrarme</button></form></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><form onsubmit="return false"><label>Nombre:</label><br><input type="text" placeholder="Tu nombre"><br><br><label>Email:</label><br><input type="email" placeholder="tu@email.com"><br><br><label>Edad:</label><br><input type="number" min="5" max="18"><br><br><button type="submit">✅ Registrarme</button></form></div>`
             }
         ],
         quiz: [
@@ -1602,7 +1603,7 @@ body::before {
             label: 'Tabla de calificaciones',
             description: 'Las tablas usan filas (&lt;tr&gt;) y celdas (&lt;td&gt; o &lt;th&gt;). El atributo border="1" hace visibles los bordes.',
             code: `<table border="1" \n  style="border-collapse:collapse">\n  <thead>\n    <tr style="background:#ddd">\n      <th>Materia</th>\n      <th>Nota</th>\n      <th>Estado</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Matemáticas</td>\n      <td>9.5</td>\n      <td>✅ Aprobado</td>\n    </tr>\n    <tr>\n      <td>Ciencias</td>\n      <td>8.0</td>\n      <td>✅ Aprobado</td>\n    </tr>\n  </tbody>\n</table>`,
-            preview: `<div style="font-family:sans-serif"><table border="1" style="border-collapse:collapse"><thead><tr style="background:#ddd"><th>Materia</th><th>Nota</th><th>Estado</th></tr></thead><tbody><tr><td>Matemáticas</td><td>9.5</td><td>✅ Aprobado</td></tr><tr><td>Ciencias</td><td>8.0</td><td>✅ Aprobado</td></tr></tbody></table></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><table border="1" style="border-collapse:collapse"><thead><tr style="background:#ddd"><th>Materia</th><th>Nota</th><th>Estado</th></tr></thead><tbody><tr><td>Matemáticas</td><td>9.5</td><td>✅ Aprobado</td></tr><tr><td>Ciencias</td><td>8.0</td><td>✅ Aprobado</td></tr></tbody></table></div>`
             }
         ],
         quiz: [
@@ -2047,7 +2048,7 @@ body::before {
             label: 'Calculadora de notas',
             description: 'El if/else if/else evalúa condiciones en orden. Solo se ejecuta el primer bloque cuya condición sea verdadera.',
             code: `<h2>📊 Calificador</h2>\n<input type="number" id="nota" \n  placeholder="Tu nota (0-10)" min="0" max="10">\n<button onclick="calificar()">✅ Calificar</button>\n<p id="resultado"></p>\n<script>\n  function calificar() {\n    let nota = Number(document.getElementById("nota").value);\n    let mensaje;\n    if (nota >= 9) {\n      mensaje = "🏆 ¡Excelente!";\n    } else if (nota >= 7) {\n      mensaje = "😊 ¡Bien hecho!";\n    } else if (nota >= 5) {\n      mensaje = "📚 Aprobado";\n    } else {\n      mensaje = "😢 Estudia más";\n    }\n    document.getElementById("resultado").textContent = mensaje;\n  }\n<\/script>`,
-            preview: `<div style="font-family:sans-serif"><h2>📊 Calificador</h2><input type="number" id="nota2" placeholder="Tu nota (0-10)" min="0" max="10"><button onclick="var n=Number(document.getElementById('nota2').value);var m=n>=9?'🏆 ¡Excelente!':n>=7?'😊 ¡Bien!':n>=5?'📚 Aprobado':'😢 Estudia más';document.getElementById('res2').textContent=m" style="padding:6px 12px;cursor:pointer">✅ Calificar</button><p id="res2" style="font-weight:bold;color:green;margin-top:8px"></p></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><h2>📊 Calificador</h2><input type="number" id="nota2" placeholder="Tu nota (0-10)" min="0" max="10"><button onclick="var n=Number(document.getElementById('nota2').value);var m=n>=9?'🏆 ¡Excelente!':n>=7?'😊 ¡Bien!':n>=5?'📚 Aprobado':'😢 Estudia más';document.getElementById('res2').textContent=m" style="padding:6px 12px;cursor:pointer">✅ Calificar</button><p id="res2" style="font-weight:bold;color:green;margin-top:8px"></p></div>`
             }
         ],
         quiz: [
@@ -2096,7 +2097,7 @@ body::before {
             label: 'Tabla de multiplicar',
             description: 'El bucle for repite el código 10 veces (i=1 hasta i=10). En cada vuelta, concatena la multiplicación al string html y luego lo muestra.',
             code: `<h2>Tabla de multiplicar</h2>\n<input type="number" id="num" \n  placeholder="Número" min="1" max="10">\n<button onclick="generarTabla()">\n  📊 Generar\n</button>\n<div id="tabla"></div>\n<script>\n  function generarTabla() {\n    let n = Number(document.getElementById("num").value);\n    let html = "<h3>Tabla del " + n + "</h3>";\n    for (let i = 1; i <= 10; i++) {\n      html += "<p>" + n + " x " + i + " = " + (n*i) + "</p>";\n    }\n    document.getElementById("tabla").innerHTML = html;\n  }\n<\/script>`,
-            preview: `<div style="font-family:sans-serif"><h2>Tabla de multiplicar</h2><input type="number" id="nnn" placeholder="Número" min="1" max="10"><button onclick="var n=Number(document.getElementById('nnn').value);var h='<h3>Tabla del '+n+'</h3>';for(var i=1;i<=10;i++){h+='<p>'+n+' x '+i+' = '+(n*i)+'</p>'}document.getElementById('ttt').innerHTML=h" style="padding:6px 12px;cursor:pointer">📊 Generar</button><div id="ttt"></div></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><h2>Tabla de multiplicar</h2><input type="number" id="nnn" placeholder="Número" min="1" max="10"><button onclick="var n=Number(document.getElementById('nnn').value);var h='<h3>Tabla del '+n+'</h3>';for(var i=1;i<=10;i++){h+='<p>'+n+' x '+i+' = '+(n*i)+'</p>'}document.getElementById('ttt').innerHTML=h" style="padding:6px 12px;cursor:pointer">📊 Generar</button><div id="ttt"></div></div>`
             }
         ],
         quiz: [
@@ -2143,7 +2144,7 @@ body::before {
             label: 'Calculadora con funciones',
             description: 'La función operar() recibe el tipo de operación como parámetro. Así, los 3 botones usan la misma función con diferentes argumentos.',
             code: `<h2>🧮 Calculadora</h2>\n<input type="number" id="a" placeholder="A" style="width:60px">\n<input type="number" id="b" placeholder="B" style="width:60px">\n<br><br>\n<button onclick="operar('+')">➕</button>\n<button onclick="operar('-')">➖</button>\n<button onclick="operar('*')">✖️</button>\n<p id="resultado">Resultado: </p>\n<script>\n  function operar(operacion) {\n    let a = Number(document.getElementById("a").value);\n    let b = Number(document.getElementById("b").value);\n    let resultado;\n    if (operacion === '+') resultado = a + b;\n    else if (operacion === '-') resultado = a - b;\n    else resultado = a * b;\n    document.getElementById("resultado").textContent = "Resultado: " + resultado;\n  }\n<\/script>`,
-            preview: `<div style="font-family:sans-serif"><h2>🧮 Calculadora</h2><input type="number" id="aa" placeholder="A" style="width:60px"><input type="number" id="bb" placeholder="B" style="width:60px"><br><br><button onclick="var a=Number(document.getElementById('aa').value),b=Number(document.getElementById('bb').value);document.getElementById('rr').textContent='= '+(a+b)" style="padding:6px 10px;cursor:pointer">➕</button><button onclick="var a=Number(document.getElementById('aa').value),b=Number(document.getElementById('bb').value);document.getElementById('rr').textContent='= '+(a-b)" style="padding:6px 10px;cursor:pointer">➖</button><p id="rr" style="font-weight:bold;font-size:18px">Resultado: </p></div>`
+            preview: `<div style="font-family:sans-serif;color:black;"><h2>🧮 Calculadora</h2><input type="number" id="aa" placeholder="A" style="width:60px"><input type="number" id="bb" placeholder="B" style="width:60px"><br><br><button onclick="var a=Number(document.getElementById('aa').value),b=Number(document.getElementById('bb').value);document.getElementById('rr').textContent='= '+(a+b)" style="padding:6px 10px;cursor:pointer">➕</button><button onclick="var a=Number(document.getElementById('aa').value),b=Number(document.getElementById('bb').value);document.getElementById('rr').textContent='= '+(a-b)" style="padding:6px 10px;cursor:pointer">➖</button><p id="rr" style="font-weight:bold;font-size:18px">Resultado: </p></div>`
             }
         ],
         quiz: [
@@ -2332,6 +2333,8 @@ body::before {
     state.quizAnswers = {};
     state.quizCorrect = 0;
     state.challengeDone = false;
+    state.currentQuizIndex = 0;
+    state.showingLastQuestion = false;
 
     document.getElementById('home-screen').style.display = 'none';
     const ls = document.getElementById('lesson-screen');
@@ -2473,63 +2476,150 @@ body::before {
     }
 
     function renderQuiz(lesson) {
-    let html = '<div class="tab-pane active"><div class="quiz-container">';
-    html += `
-        <div class="quiz-intro-banner">
-        <div class="qib-icon">🧠</div>
-        <div>
-            <h4>¡Hora de demostrar lo aprendido!</h4>
-            <p>Responde las preguntas sobre la lección. Puedes ver la lección de nuevo si tienes dudas.</p>
-        </div>
-        </div>`;
+  let html = '<div class="tab-pane active"><div class="quiz-container">';
+  html += `
+    <div class="quiz-intro-banner">
+      <div class="qib-icon">🧠</div>
+      <div>
+        <h4>¡Hora de demostrar lo aprendido!</h4>
+        <p>Responde cada pregunta. Avanza cuando estés listo.</p>
+      </div>
+    </div>`;
 
-    lesson.quiz.forEach((q, qi) => {
-        const answered = state.quizAnswers[qi] !== undefined;
-        const isCorrect = state.quizAnswers[qi] === q.correct;
-        html += `<div class="question-card" id="q-${qi}">
-        <div class="question-number">Pregunta ${qi + 1} de ${lesson.quiz.length}</div>
-        <div class="question-text">${q.question}</div>
-        <div class="options-grid">`;
-        q.options.forEach((opt, oi) => {
-        let cls = 'option-btn';
-        if (answered) {
-            if (oi === q.correct) cls += ' correct';
-            else if (oi === state.quizAnswers[qi] && !isCorrect) cls += ' wrong';
-        }
-        html += `<button class="${cls}" ${answered ? 'disabled' : ''} onclick="answerQuiz(${qi}, ${oi})">
-            <span class="option-letter">${String.fromCharCode(65 + oi)}</span>
-            ${opt}
-        </button>`;
-        });
-        html += `</div>
-        <div class="feedback-msg ${answered ? 'show ' + (isCorrect ? 'correct' : 'wrong') : ''}" id="fb-${qi}">
-            ${answered ? (isCorrect ? '✅ ' : '❌ ') + q.feedback : ''}
-        </div>
-        </div>`;
+  // Pips de progreso
+  html += `<div style="display:flex;gap:6px;margin-bottom:16px;align-items:center">`;
+  lesson.quiz.forEach((_, i) => {
+    const answered = state.quizAnswers[i] !== undefined;
+    const active = i === (state.currentQuizIndex || 0);
+    html += `<div style="height:8px;border-radius:4px;transition:all 0.3s;
+      background:${answered ? 'var(--green)' : 'rgba(255,255,255,0.1)'};
+      width:${active && !answered ? '24px' : '8px'};
+      border:1px solid ${answered ? 'var(--green)' : active ? 'var(--purple-light)' : 'rgba(255,255,255,0.2)'}">
+    </div>`;
+  });
+  html += `</div>`;
+
+  const allAnswered = Object.keys(state.quizAnswers).length === lesson.quiz.length;
+
+  if (!allAnswered || state.showingLastQuestion) {
+    const qi = state.currentQuizIndex || 0;
+    const q = lesson.quiz[qi];
+    const answered = state.quizAnswers[qi] !== undefined;
+    const isCorrect = state.quizAnswers[qi] === q.correct;
+
+    html += `<div class="question-card" id="quiz-question-block">
+      <div class="question-number">Pregunta ${qi + 1} de ${lesson.quiz.length}</div>
+      <div class="question-text">${q.question}</div>
+      <div class="options-grid">`;
+
+    q.options.forEach((opt, oi) => {
+      let cls = 'option-btn';
+      if (answered) {
+        if (oi === q.correct) cls += ' correct';
+        else if (oi === state.quizAnswers[qi] && !isCorrect) cls += ' wrong';
+      }
+      html += `<button class="${cls}" ${answered ? 'disabled' : ''} onclick="answerQuiz(${qi}, ${oi})">
+        <span class="option-letter">${String.fromCharCode(65 + oi)}</span>
+        ${opt}
+      </button>`;
     });
 
-    const allAnswered = Object.keys(state.quizAnswers).length === lesson.quiz.length;
-    if (allAnswered) {
-        const pct = Math.round((state.quizCorrect / lesson.quiz.length) * 100);
-        html += `<div class="complete-card">
-        <div class="stars-display">${getStarsDisplay(pct)}</div>
-        <div class="complete-title">¡Quiz terminado!</div>
-        <p style="color:var(--text2);margin:8px 0">${state.quizCorrect} de ${lesson.quiz.length} correctas (${pct}%)</p>
-        <button class="start-btn" onclick="state.currentPhase=2;goNextPhase()" style="margin-top:12px">⌨️ Ir a la Práctica →</button>
-        </div>`;
-    }
+    html += `</div>
+      <div class="feedback-msg ${answered ? 'show ' + (isCorrect ? 'correct' : 'wrong') : ''}" id="fb-${qi}">
+        ${answered ? (isCorrect ? '✅ ' : '❌ ') + q.feedback : ''}
+      </div>
+    </div>`;
 
-    html += '</div></div>';
-    return html;
+    if (answered && !allAnswered) {
+      html += `<div style="display:flex;justify-content:flex-end;margin-top:12px">
+        <button class="check-btn" onclick="goNextQuizQuestion()">
+          ${qi < lesson.quiz.length - 1 ? 'Siguiente pregunta →' : 'Ver resultados 🏁'}
+        </button>
+      </div>`;
     }
+  }
 
-    function answerQuiz(qi, oi) {
-    if (state.quizAnswers[qi] !== undefined) return;
-    state.quizAnswers[qi] = oi;
-    const lesson = state.currentLesson;
-    if (oi === lesson.quiz[qi].correct) state.quizCorrect++;
+  // Resultado final (inicialmente oculto si acaba de terminar)
+  if (allAnswered) {
+    const pct = Math.round((state.quizCorrect / lesson.quiz.length) * 100);
+    html += `<div class="complete-card" id="quiz-results-block" style="margin-top:16px;${state.showingLastQuestion ? 'display:none' : ''}">
+      <div class="stars-display">${getStarsDisplay(pct)}</div>
+      <div class="complete-title">¡Quiz terminado!</div>
+      <p style="color:var(--text2);margin:8px 0">${state.quizCorrect} de ${lesson.quiz.length} correctas (${pct}%)</p>
+      <button class="start-btn" onclick="state.currentPhase=2;goNextPhase()" style="margin-top:12px">⌨️ Ir a la Práctica →</button>
+    </div>`;
+  }
+
+  html += '</div></div>';
+  return html;
+}
+
+function answerQuiz(qi, oi) {
+  if (state.quizAnswers[qi] !== undefined) return;
+  state.quizAnswers[qi] = oi;
+  const lesson = state.currentLesson;
+  if (oi === lesson.quiz[qi].correct) state.quizCorrect++;
+
+  const isLastQuestion = qi === lesson.quiz.length - 1;
+
+  if (isLastQuestion) {
+    // Marcar que estamos mostrando la última pregunta con su resultado
+    state.showingLastQuestion = true;
     renderPhase();
-    }
+
+    // Después de 2 segundos: ocultar pregunta y mostrar resultados con animación
+    setTimeout(() => {
+      state.showingLastQuestion = false;
+      const questionBlock = document.getElementById('quiz-question-block');
+      const resultsBlock = document.getElementById('quiz-results-block');
+
+      if (questionBlock && resultsBlock) {
+        // Fade out pregunta
+        questionBlock.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        questionBlock.style.opacity = '0';
+        questionBlock.style.transform = 'translateY(-10px)';
+
+        setTimeout(() => {
+          questionBlock.style.display = 'none';
+          // Fade in resultados
+          resultsBlock.style.display = 'block';
+          resultsBlock.style.opacity = '0';
+          resultsBlock.style.transform = 'translateY(10px)';
+          resultsBlock.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          setTimeout(() => {
+            resultsBlock.style.opacity = '1';
+            resultsBlock.style.transform = 'translateY(0)';
+            launchConfetti();
+            // Scroll suave al resultado
+            resultsBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 50);
+        }, 400);
+      } else {
+        renderPhase();
+      }
+    }, 2000);
+  } else {
+    renderPhase();
+  }
+}
+
+function goNextQuizQuestion() {
+  const lesson = state.currentLesson;
+  const nextIndex = (state.currentQuizIndex || 0) + 1;
+  if (nextIndex < lesson.quiz.length) {
+    state.currentQuizIndex = nextIndex;
+    renderPhase();
+  }
+}
+
+function goNextQuizQuestion() {
+  const lesson = state.currentLesson;
+  const nextIndex = (state.currentQuizIndex || 0) + 1;
+  if (nextIndex < lesson.quiz.length) {
+    state.currentQuizIndex = nextIndex;
+    renderPhase();
+  }
+}
 
     function renderChallenge(lesson) {
     const ch = lesson.challenge;
